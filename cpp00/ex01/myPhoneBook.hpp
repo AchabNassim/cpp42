@@ -8,8 +8,8 @@
 #include <iomanip>
 #include <sstream>
 #include <cstring>
-#include "PhoneBook.hpp"
 #include "Contact.hpp"
+#include "PhoneBook.hpp"
 #endif
 
 

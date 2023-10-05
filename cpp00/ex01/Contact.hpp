@@ -27,8 +27,11 @@ class Contact {
 
             while (1)
             {
-                std::cout << "\t*Please enter your first name: *" << std::endl;
-                std::getline(std::cin, buffer);
+                std::cout << "*Please enter your first name: *" << std::endl;
+                if(!std::getline(std::cin, buffer)) {
+                    std::cout << "Exiting the program, till the next time!" << std::endl;
+                    exit(0);
+                }
                 if (!buffer.empty() || buffer.length() != 0) {
                     this->firstName = buffer;
                     break ;
@@ -37,8 +40,11 @@ class Contact {
             }
             while (1)
             {
-                std::cout << "\t*Please enter your last name: *" << std::endl;
-                std::getline(std::cin, buffer);
+                std::cout << "*Please enter your last name: *" << std::endl;
+                if(!std::getline(std::cin, buffer)) {
+                    std::cout << "Exiting the program, till the next time!" << std::endl;
+                    exit(0);
+                }
                 if (!buffer.empty() || buffer.length() != 0) {
                     this->lastName = buffer;
                     break ;
@@ -47,8 +53,11 @@ class Contact {
             }
             while (1)
             {
-                std::cout << "\t*Please enter your nickname: *" << std::endl;
-                std::getline(std::cin, buffer);
+                std::cout << "*Please enter your nickname: *" << std::endl;
+                if(!std::getline(std::cin, buffer)) {
+                    std::cout << "Exiting the program, till the next time!" << std::endl;
+                    exit(0);
+                }
                 if (!buffer.empty() || buffer.length() != 0) {
                     this->nickName = buffer;
                     break ;
@@ -57,8 +66,11 @@ class Contact {
             }
             while (1)
             {
-                std::cout << "\t*Please enter your phone number: *" << std::endl;
-                std::getline(std::cin, buffer);
+                std::cout << "*Please enter your phone number: *" << std::endl;
+                if(!std::getline(std::cin, buffer)) {
+                    std::cout << "Exiting the program, till the next time!" << std::endl;
+                    exit(0);
+                }
                 if (!buffer.empty() || buffer.length() != 0) {
                     this->phoneNumber = buffer;
                     break ;
@@ -67,8 +79,11 @@ class Contact {
             }
             while (1)
             {
-                std::cout << "\t*Please enter your darkest secret: *" << std::endl;
-                std::getline(std::cin, buffer);
+                std::cout << "*Please enter your darkest secret: *" << std::endl;
+                if(!std::getline(std::cin, buffer)) {
+                    std::cout << "Exiting the program, till the next time!" << std::endl;
+                    exit(0);
+                }
                 if (!buffer.empty() || buffer.length() != 0) {
                     this->darkestSecret = buffer;
                     break ;

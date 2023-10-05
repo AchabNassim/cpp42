@@ -1,13 +1,13 @@
-#include "MyPhoneBook.hpp"
+#include "myPhoneBook.hpp"
 
 int main(){
     PhoneBook   myPhoneBook;
     std::string buffer;
 
     std::cout << "Welcome to Phonebook, in this program you can store up to 8 contacts! to start, please enter a command\n"
-        << "ADD: to add a new contact\n" 
-        << "SEARCH: to display and search for a specific contact\n" 
-        << "EXIT: to exit the program (Contacts will be lost forever)" << std::endl;
+        << "\t** ADD: to add a new contact\n" 
+        << "\t** SEARCH: to display and search for a specific contact\n" 
+        << "\t** EXIT: to exit the program (Contacts will be lost forever)" << std::endl;
     while (1) {
         std::cout << "Enter a command : (ADD - SEARCH - EXIT)" << std::endl;
         if (!std::getline(std::cin, buffer)) {
