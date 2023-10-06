@@ -1,10 +1,10 @@
-NAME = megaphone
+NAME = phonebook
 
 CXX = g++
 
 FLAGS = -Wall -Wextra -Werror -std=c++98
 
-SRC = megaphone.cpp
+SRC = program.cpp phoneBookUtils.cpp contactUtils.cpp
 
 OBJ = $(SRC:.cpp=.o)
 
