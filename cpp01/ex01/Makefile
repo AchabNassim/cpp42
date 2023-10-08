@@ -1,13 +1,12 @@
-NAME = phonebook
+NAME = zombie
 
 CXX = c++
 
 FLAGS = -Wall -Wextra -Werror -std=c++98
 
-SRC = program.cpp phoneBookUtils.cpp contactUtils.cpp
+SRC = main.cpp Zombie.cpp zombieHorde.cpp
 
 OBJ = $(SRC:.cpp=.o)
-
 
 all: $(NAME)
 

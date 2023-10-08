@@ -1,16 +1,7 @@
 #ifndef PHONEBOOK_HPP
 # define PHONEBOOK_HPP
 
-#ifndef INCLUDES
-# define INCLUDES
-#include <iostream>
-#include <string>
-#include <iomanip>
-#include <sstream>
-#include <cstring>
-#include "Contact.hpp"
-#include "PhoneBook.hpp"
-#endif
+#include "myPhoneBook.hpp"
 
 #define MAX_CONTACTS 8
 

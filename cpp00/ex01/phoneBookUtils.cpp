@@ -42,13 +42,12 @@ void PhoneBook::addContact() {
 }
 
 void PhoneBook::search () {
+    int         index;
+
     if (emptyList) {
         std::cout << "\033[31mContact list is empty, please try again later.\n" << "\033[0m";
         return ;
     }
-    std::string buffer;
-    int         index;
-
     std::cout << " ___________________________________________ " << std::endl;
     std::cout << "|     Index|First Name| Last Name|  Nickname|" << std::endl;
     std::cout << "|----------|----------|----------|----------|" << std::endl;
@@ -59,7 +58,7 @@ void PhoneBook::search () {
     std::cout << "\033[32m*Please type the index of the number you want to see*" << "\033[0m" << std::endl;
     std::cin >> index;
     if (std::cin.eof())
-        exit(0) ;
+        std::exit(0) ;
     if (std::cin.fail()) {
         std::cout << "\033[31mInput entered was not valid, search aborted.\n\033[0m";
         std::cin.clear();

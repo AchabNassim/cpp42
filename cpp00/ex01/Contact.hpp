@@ -1,16 +1,7 @@
 #ifndef CONTACT_HPP
 # define CONTACT_HPP
 
-#ifndef INCLUDES
-# define INCLUDES
-#include <iostream>
-#include <string>
-#include <iomanip>
-#include <sstream>
-#include <cstring>
-#include "Contact.hpp"
-#include "PhoneBook.hpp"
-#endif
+#include "myPhoneBook.hpp"
 
 class Contact {
     private:

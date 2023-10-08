@@ -1,7 +1,7 @@
 #include "PhoneBook.hpp"
 
 int main(){
-    PhoneBook   myPhoneBook;
+    PhoneBook   MyPhoneBook;
     std::string buffer;
 
     std::cout << "Welcome to Phonebook, in this program you can store up to 8 contacts! to start, please enter a command\n"
@@ -14,9 +14,9 @@ int main(){
             break ;
         }
         else if (buffer.compare("ADD") == 0) {
-            myPhoneBook.addContact();
+            MyPhoneBook.addContact();
         } else if (buffer.compare("SEARCH") == 0) {
-            myPhoneBook.search();
+            MyPhoneBook.search();
         } else if (buffer.compare("EXIT") == 0) {
             break ;
         }

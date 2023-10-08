@@ -1,6 +1,6 @@
 NAME = megaphone
 
-CXX = g++
+CXX = c++
 
 FLAGS = -Wall -Wextra -Werror -std=c++98
 
