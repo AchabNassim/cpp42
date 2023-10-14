@@ -1,7 +1,7 @@
 #include "Zombie.hpp"
 
 int main () {
-    const int HORDE_NUMBER = 15;
+    const int HORDE_NUMBER = 1;
     Zombie *Zombies = zombieHorde(HORDE_NUMBER, "Dummy");
 
     for (int i = 0; i < HORDE_NUMBER; i++) {

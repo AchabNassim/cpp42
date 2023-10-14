@@ -12,6 +12,9 @@ int main(int argc, char **argv) {
     if (!inputFile.is_open()) {
         std::cerr << "Couldn't open " << fileName << std::endl;
         return (1);
+    } else if (inputFile.peek() == std::ifstream::traits_type::eof()) {
+        std::cerr << "File is empty, exiting program." << std::endl;
+        return (1);
     }
     std::ofstream outputFile(fileName + ".replace");
     if (!outputFile.is_open()) {

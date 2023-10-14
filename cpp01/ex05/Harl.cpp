@@ -25,10 +25,10 @@ void    Harl::error(void) {
 
 
 void    Harl::complain(std::string level) {
-    void    (Harl::* complaints[])(void) = {&Harl::debug, Harl::info, &Harl::warning, &Harl::error};
-    std::string karens[] = {"debug", "info", "warning", "error"};
+    void    (Harl::* complaints[])(void) = {&Harl::debug, &Harl::info, &Harl::warning, &Harl::error};
+    std::string messages[] = {"debug", "info", "warning", "error"};
     for (int i = 0; i < NUMBER_OF_COMPLAINTS; i++) {
-        if (level.compare(karens[i]) == 0) {
+        if (level.compare(messages[i]) == 0) {
             (this->*complaints[i])();
             break ;
         }
