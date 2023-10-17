@@ -19,12 +19,12 @@ Fixed::Fixed(const float floatValue) {
 
 
 Fixed::Fixed(const Fixed& fixedRef){
-    // std::cout << "Copy constructor called" << std::endl;
+    std::cout << "Copy constructor called" << std::endl;
     this->fixedPoint = fixedRef.getRawBits();
 }
 
 Fixed& Fixed::operator=(const Fixed& fixedRef) {
-    // std::cout << "Copy assignment operator called" << std::endl;
+    std::cout << "Copy assignment operator called" << std::endl;
     if (this == &fixedRef) {
         return (*this);
     }
