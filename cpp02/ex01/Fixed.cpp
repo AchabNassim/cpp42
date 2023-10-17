@@ -1,6 +1,6 @@
 #include "Fixed.hpp"
 
-std::ostream& operator<<(std::ostream& os, const Fixed& fixed);
+// ************         Constructors              ************ //
 
 Fixed::Fixed() {
     std::cout << "Default constructor called" << std::endl;
@@ -14,7 +14,7 @@ Fixed::Fixed(const int intValue) {
 
 Fixed::Fixed(const float floatValue) {
     std::cout << "Float constructor called" << std::endl;
-    this->fixedPoint = static_cast<int>(std::round(floatValue * (1 << this->fractionalBits)));
+    this->fixedPoint = static_cast<int>(std::roundf(floatValue * (1 << this->fractionalBits)));
 }
 
 
@@ -36,6 +36,10 @@ Fixed::~Fixed() {
     std::cout << "Destructor called" << std::endl;
 }
 
+
+// ************         Member functions              ************ //
+
+
 int	Fixed::getRawBits(void) const {
 	// std::cout << "getRawBits member function called" << std::endl;
     return (this->fixedPoint);
@@ -52,6 +56,9 @@ float Fixed::toFloat(void) const {
 int Fixed::toInt(void) const {
     return (getRawBits() >> 8);
 }
+
+
+// ************         Stream extraction operator overload              ************ //
 
 std::ostream& operator<<(std::ostream& os, const Fixed& fixed) {
     os << fixed.toFloat();
