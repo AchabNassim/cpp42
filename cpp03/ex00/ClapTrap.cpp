@@ -2,23 +2,24 @@
 
 // ************         Constructors & deconstructor      ************ //
 
-ClapTrap::ClapTrap() {
+ClapTrap::ClapTrap() : name("ClapTrap"), hitPoints(10), energyPoints(10), attackDamage(10){
     std::cout << "Default Constructor called" << std::endl;
-    name = "ClapTrap";
-    hitPoints = 10;
-    energyPoints = 10;
-    attackDamage = 10;
 }
 
-ClapTrap::ClapTrap(std::string name) {
+ClapTrap::ClapTrap(std::string name) : name(name), hitPoints(10), energyPoints(10), attackDamage(10) {
     std::cout << "Custom Constructor called" << std::endl;
-    this->name = name;
-    hitPoints = 10;
-    energyPoints = 10;
-    attackDamage = 10;
+}
+
+ClapTrap::ClapTrap(ClapTrap &ref) {
+    std::cout << "Copy constructor called\n";
+    this->name = ref.getName();
+    this->hitPoints = ref.getHitPoints();
+    this->energyPoints = ref.getEnergyPoints();
+    this->attackDamage = ref.getAttackDamage();
 }
 
 ClapTrap& ClapTrap::operator=(ClapTrap &ref) {
+    std::cout << "Assignement operator called\n";
     if (this == &ref)
         return (*this);
     this->name = ref.getName();
@@ -97,7 +98,7 @@ void ClapTrap::beRepaired(unsigned int amount) {
     if (this->hitPoints <= 0)
         std::cout << this->name << " Can't heal itself, It has already been destroyed\n";
     else if (this->energyPoints <= 0)
-        std::cout << this->name << " Doesn't have the energy to required repair itself.\n";
+        std::cout << this->name << " Doesn't have the energy required repair itself.\n";
     else {
         setHitPoints(this->hitPoints + amount);
         setEnergyPoints(this->energyPoints - 1);
