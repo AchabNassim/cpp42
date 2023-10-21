@@ -16,6 +16,25 @@ DiamondTrap::DiamondTrap(std::string name) {
     this->attackDamage = 30;
 }
 
+DiamondTrap::DiamondTrap(DiamondTrap &ref) : ClapTrap(name) {
+    std::cout << "DiamondTrap constructor called\n";
+    this->name = ref.name;
+    this->hitPoints = ref.hitPoints;
+    this->energyPoints = ref.energyPoints;
+    this->attackDamage = ref.attackDamage;
+}
+
+DiamondTrap& DiamondTrap::operator=(DiamondTrap &ref) {
+    if (this == &ref)
+        return (*this);
+    std::cout << "DiamondTrap assignement operator called\n";
+    this->name = ref.name;
+    this->hitPoints = ref.hitPoints;
+    this->energyPoints = ref.energyPoints;
+    this->attackDamage = ref.attackDamage;
+    return (*this);
+}
+
 DiamondTrap::~DiamondTrap() {
     std::cout << "Diamond destructor called\n";
 }
