@@ -1,5 +1,6 @@
 #include "ScavTrap.hpp"
 #include "ClapTrap.hpp"
+#include <memory>
 
 ScavTrap::ScavTrap(void) {
     std::cout << "Default ScavTrap constructor called\n";
@@ -49,7 +50,12 @@ void ScavTrap::attack(const std::string& target) {
     }
 }
 
-
 void ScavTrap::guardGate() {
-    std::cout << "ScavTrap " << name << " is now in Gate keeper mode!\n";
+    if (this->getHitPoints() <= 0)
+        std::cout << "ScavTrap " << this->getName() << " doesn't have the health to enter gate keeper mode.\n";
+    else if (this->getEnergyPoints() <= 0)
+        std::cout << "ScavTrap " << this->getName() << " doesn't have the energy required to enter gate keeper mode.\n";
+    else {
+        std::cout << "ScavTrap " << name << " is now in Gate keeper mode!\n";
+    }
 }
