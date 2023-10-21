@@ -7,7 +7,7 @@ DiamondTrap::DiamondTrap() {
     std::cout << "Default DiamondTrap constructor called\n";
 }
 
-DiamondTrap::DiamondTrap(std::string name) {
+DiamondTrap::DiamondTrap(std::string name) : ClapTrap(name + "_clap_name") {
     std::cout << "DiamondTrap constructor called\n";
     this->ClapTrap::name = name + "_clap_name";
     this->name = name;
@@ -16,7 +16,7 @@ DiamondTrap::DiamondTrap(std::string name) {
     this->attackDamage = 30;
 }
 
-DiamondTrap::DiamondTrap(DiamondTrap &ref) : ClapTrap(name) {
+DiamondTrap::DiamondTrap(DiamondTrap &ref) : ClapTrap(ref.name + "_clap_name") {
     std::cout << "DiamondTrap constructor called\n";
     this->name = ref.name;
     this->hitPoints = ref.hitPoints;

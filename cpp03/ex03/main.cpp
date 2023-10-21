@@ -3,4 +3,5 @@
 int main() {
     DiamondTrap robot("robert");
     robot.highFivesGuys();
+    robot.whoAmI();
 }
