@@ -3,9 +3,12 @@
 #include "ScavTrap.hpp"
 
 int main() {
-    // ClapTrap roboto("roboto");
-    FragTrap robot("Rob");
-    // roboto.attack("Laarbi");
+    ClapTrap roboto("clp");
+    ScavTrap robotto("scv");
+    FragTrap robot("frg");
+    roboto.attack("Laarbi");
+    robotto.attack("Laarbi");
     robot.attack("Laarbi");
+    robotto.guardGate();
     robot.highFivesGuys();
 }

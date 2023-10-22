@@ -16,23 +16,23 @@ ScavTrap::ScavTrap(std::string name) : ClapTrap(name) {
     this->attackDamage = 20;
 }
 
-ScavTrap::ScavTrap(ScavTrap &ref) : ClapTrap(ref.name) {
-    std::cout << "ScavTrap copy constructor called\n";
-    this->hitPoints = ref.getHitPoints();
-    this->energyPoints = ref.getEnergyPoints();
-    this->attackDamage = ref.getAttackDamage();
-}
+// ScavTrap::ScavTrap(ScavTrap &ref) : ClapTrap(ref.name) {
+//     std::cout << "ScavTrap copy constructor called\n";
+//     this->hitPoints = ref.getHitPoints();
+//     this->energyPoints = ref.getEnergyPoints();
+//     this->attackDamage = ref.getAttackDamage();
+// }
 
-ScavTrap& ScavTrap::operator=(ScavTrap &ref) {
-    std::cout << "ScavTrap assignement operator called\n";
-    if (this == &ref)
-        return (*this);
-    this->name = getName();
-    this->hitPoints = ref.getHitPoints();
-    this->energyPoints = ref.getEnergyPoints();
-    this->attackDamage = ref.getAttackDamage();
-    return (*this);
-}
+// ScavTrap& ScavTrap::operator=(ScavTrap &ref) {
+//     std::cout << "ScavTrap assignement operator called\n";
+//     if (this == &ref)
+//         return (*this);
+//     this->name = ref.getName();
+//     this->hitPoints = ref.getHitPoints();
+//     this->energyPoints = ref.getEnergyPoints();
+//     this->attackDamage = ref.getAttackDamage();
+//     return (*this);
+// }
 
 ScavTrap::~ScavTrap() {
     std::cout << "ScavTrap destructor called\n";

@@ -16,23 +16,23 @@ FragTrap::FragTrap(std::string name) : ClapTrap(name) {
     this->attackDamage = 30;
 }
 
-FragTrap::FragTrap(FragTrap &ref) : ClapTrap(ref.name) {
-    std::cout << "FragTrap copy constructor called\n";
-    this->hitPoints = ref.getHitPoints();
-    this->energyPoints = ref.getEnergyPoints();
-    this->attackDamage = ref.getAttackDamage();
-}
+// FragTrap::FragTrap(FragTrap &ref) : ClapTrap(ref.name) {
+//     std::cout << "FragTrap copy constructor called\n";
+//     this->hitPoints = ref.getHitPoints();
+//     this->energyPoints = ref.getEnergyPoints();
+//     this->attackDamage = ref.getAttackDamage();
+// }
 
-FragTrap& FragTrap::operator=(FragTrap &ref) {
-    std::cout << "FragTrap assignement operator called\n";
-    if (this == &ref)
-        return (*this);
-    this->name = getName();
-    this->hitPoints = ref.getHitPoints();
-    this->energyPoints = ref.getEnergyPoints();
-    this->attackDamage = ref.getAttackDamage();
-    return (*this);
-}
+// FragTrap& FragTrap::operator=(FragTrap &ref) {
+//     std::cout << "FragTrap assignement operator called\n";
+//     if (this == &ref)
+//         return (*this);
+//     this->name = ref.getName();
+//     this->hitPoints = ref.getHitPoints();
+//     this->energyPoints = ref.getEnergyPoints();
+//     this->attackDamage = ref.getAttackDamage();
+//     return (*this);
+// }
 
 FragTrap::~FragTrap() {
     std::cout << "FragTrap destructor called\n";
