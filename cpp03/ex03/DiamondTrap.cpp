@@ -1,5 +1,6 @@
 #include "DiamondTrap.hpp"
 #include "ClapTrap.hpp"
+#include "FragTrap.hpp"
 #include "ScavTrap.hpp"
 #include <ios>
 
@@ -16,7 +17,7 @@ DiamondTrap::DiamondTrap(std::string name) : ClapTrap(name + "_clap_name") {
     this->attackDamage = 30;
 }
 
-DiamondTrap::DiamondTrap(DiamondTrap &ref) : ClapTrap(ref.name + "_clap_name") {
+DiamondTrap::DiamondTrap(DiamondTrap &ref) : ClapTrap(), FragTrap(), ScavTrap() {
     std::cout << "DiamondTrap constructor called\n";
     this->name = ref.name;
     this->hitPoints = ref.hitPoints;
@@ -52,5 +53,5 @@ void    DiamondTrap::setName(std::string newName) {
 }
 
 void    DiamondTrap::whoAmI() {
-    std::cout << "Who the hell am I? well, I'm named " << getName() << " and my Parent is named " << ClapTrap::getName() << std::endl;
+    std::cout << "Who the hell am I? well, I'm named " << getName() << " and my Parent's name is " << ClapTrap::getName() << std::endl;
 }
