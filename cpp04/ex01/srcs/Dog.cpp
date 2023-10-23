@@ -2,11 +2,13 @@
 
 Dog::Dog() : Animal("Dog") {
     std::cout << this->m_type << " constructor called\n";
+    this->brain = new Brain;
 }
 
 Dog::Dog(Dog& ref) {
     std::cout << "Dog copy constructor called\n";
     this->m_type = ref.m_type;
+    this->brain = new Brain(*ref.brain);
 }
 
 Dog& Dog::operator=(Dog& ref) {
@@ -14,6 +16,8 @@ Dog& Dog::operator=(Dog& ref) {
     if (this == &ref)
         return (*this);
     this->m_type = ref.m_type;
+    this->brain = new Brain(*ref.brain);
+    this->brain = ref.brain;
     return (*this);
 }
 
