@@ -8,6 +8,7 @@ Dog::Dog() : Animal("Dog") {
 Dog::Dog(Dog& ref) {
     std::cout << "Dog copy constructor called\n";
     this->m_type = ref.m_type;
+    delete this->brain;
     this->brain = new Brain(*ref.brain);
 }
 
@@ -16,13 +17,14 @@ Dog& Dog::operator=(Dog& ref) {
     if (this == &ref)
         return (*this);
     this->m_type = ref.m_type;
+    delete this->brain;
     this->brain = new Brain(*ref.brain);
-    this->brain = ref.brain;
     return (*this);
 }
 
 Dog::~Dog() {
     std::cout << this->m_type << " destructor called\n";
+    delete this->brain;
 }
 
 void    Dog::makeSound() const {
