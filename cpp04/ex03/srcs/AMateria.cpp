@@ -1,4 +1,8 @@
 #include "../include/AMateria.hpp"
+#include "../include/ICharacter.hpp"
+#include "../include/Dump.hpp"
+
+Dump AMateria::StaticDump;
 
 AMateria::AMateria() {
     std::cout << "Default constructor called\n";
@@ -6,19 +10,19 @@ AMateria::AMateria() {
 
 AMateria::AMateria(std::string const & type) {
     std::cout << "AMateria constructor called\n";
-    this->type = type;
+    this->m_type = type;
 }
 
 AMateria::AMateria(AMateria &ref) {
     std::cout << "AMateria copy constructor called\n";
-    this->type = ref.type;
+    this->m_type = ref.m_type;
 }
 
 AMateria& AMateria::operator=(AMateria &ref) {
     std::cout << "AMateria assignement operator called\n";
     if (this == &ref)
         return (*this);
-    this->type = ref.type;
+    this->m_type = ref.m_type;
     return (*this);
 }
 
@@ -27,5 +31,9 @@ AMateria::~AMateria() {
 }
 
 const std::string& AMateria::getType() const {
-    return (this->type);
+    return (this->m_type);
+}
+
+void        AMateria::use(ICharacter &target) {
+    std::cout << this->m_type << " is used on " << target.getName() << "\n"; 
 }

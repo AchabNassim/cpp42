@@ -3,8 +3,6 @@
 
 #include "AMateria.hpp"
 
-#define CLASSNAME "ice"
-
 class Ice : public AMateria {
     public:
         Ice();
@@ -13,7 +11,7 @@ class Ice : public AMateria {
         ~Ice();
 
         AMateria*    clone() const;
-        // void        use(Icharacter &target);
+        void        use(ICharacter& target);
 };
 
 #endif

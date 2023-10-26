@@ -1,23 +1,33 @@
 #include "../include/Cure.hpp"
+#include "../include/ICharacter.hpp"
 
-Cure::Cure() : AMateria(CLASSNAME) {
-    std::cout << "Default constructor called\n";
+
+Cure::Cure() : AMateria("cure") {
+    std::cout << "Cure constructor called\n";
 }
 
 Cure::Cure(Cure &ref) {
     std::cout << "Cure copy constructor called\n";
-    this->type = ref.type;
+    this->m_type = ref.m_type;
 }
 
 Cure& Cure::operator=(Cure &ref) {
     std::cout << "Cure assignement operator called\n";
     if (this == &ref)
         return (*this);
-    this->type = ref.type;
+    this->m_type = ref.m_type;
     return (*this);
 }
 
 AMateria* Cure::clone() const {
     AMateria *ptr = new Cure();
     return (ptr);
+}
+
+Cure::~Cure() {
+    std::cout << "Cure destructor called\n";
+}
+
+void        Cure::use(ICharacter &target) {
+    std::cout << "Cure: * heals " << target.getName() << " wounds *\n"; 
 }
