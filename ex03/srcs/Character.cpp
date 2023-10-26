@@ -1,5 +1,6 @@
 #include "../include/AMateria.hpp"
 #include "../include/Character.hpp"
+#include "../include/Dump.hpp"
 
 Character::Character() {
     std::cout << "Default constructor called\n";
@@ -56,11 +57,13 @@ void    Character::equip(AMateria *m) {
         this->m_slotNumber++;
     } else {
         std::cout << "All slots are full, try unequiping\n";
+        AMateria::StaticDump.setDump(m);
     }
 }
 
 void    Character::unequip(int idx) {
     if (idx < 4 && idx >= 0) {
+        AMateria::StaticDump.setDump(this->m_slots[this->m_slotNumber]);
         this->m_slots[this->m_slotNumber] = NULL;
         this->m_slotNumber--;
     } else {

@@ -4,7 +4,6 @@
 #include <iostream>
 class AMateria;
 
-
 class ICharacter {
     public:
         virtual ~ICharacter() {};

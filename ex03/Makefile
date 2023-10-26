@@ -4,7 +4,7 @@ CXX = c++
 
 FLAGS = -Wall -Wextra -Werror -std=c++98
 
-SRC = main.cpp srcs/AMateria.cpp srcs/Cure.cpp srcs/Ice.cpp srcs/Character.cpp
+SRC = main.cpp srcs/AMateria.cpp srcs/Cure.cpp srcs/Ice.cpp srcs/Character.cpp srcs/Dump.cpp
 
 OBJ = $(SRC:.cpp=.o)
 

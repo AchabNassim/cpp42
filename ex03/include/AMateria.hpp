@@ -3,6 +3,7 @@
 
 #include <iostream>
 class   ICharacter;
+class   Dump;
 
 class AMateria
 {
@@ -12,6 +13,7 @@ class AMateria
         AMateria(std::string const & type);
         AMateria(AMateria &ref);
     public:
+        static Dump StaticDump;
         virtual ~AMateria();
         AMateria& operator=(AMateria &ref);
         std::string const & getType() const; //Returns the materia type

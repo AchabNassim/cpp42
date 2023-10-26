@@ -1,5 +1,8 @@
 #include "../include/AMateria.hpp"
 #include "../include/ICharacter.hpp"
+#include "../include/Dump.hpp"
+
+Dump AMateria::StaticDump;
 
 AMateria::AMateria() {
     std::cout << "Default constructor called\n";
