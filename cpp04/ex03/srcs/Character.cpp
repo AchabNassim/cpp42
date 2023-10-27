@@ -3,7 +3,7 @@
 #include "../include/Dump.hpp"
 
 Character::Character() {
-    std::cout << "Default constructor called\n";
+    // std::cout << "Default constructor called\n";
     for (int i = 0; i < 4; i++) {
         this->m_slots[i] = NULL;
     }
@@ -11,7 +11,7 @@ Character::Character() {
 }
 
 Character::Character(std::string const & name) {
-    std::cout << "Character constructor called\n";
+    // std::cout << "Character constructor called\n";
     this->m_name = name;
     for (int i = 0; i < 4; i++) {
         this->m_slots[i] = NULL;
@@ -20,28 +20,42 @@ Character::Character(std::string const & name) {
 }
 
 Character::Character(Character &ref) {
-    std::cout << "Character copy constructor called\n";
+    // std::cout << "Character copy constructor called\n";
     this->m_name = ref.m_name;
     for (int i = 0; i < 4; i++) {
-        this->m_slots[i] = ref.m_slots[i];
+        if (this->m_slots[i] != NULL) {
+            AMateria::StaticDump.setDump(this->m_slots[i]);
+        }
+        if (ref.m_slots[i] != NULL) {
+            this->m_slots[i] = ref.m_slots[i]->clone();
+        } else {
+            this->m_slots[i] = NULL;
+        }
     }
     this->m_slotNumber = ref.m_slotNumber;
 }
 
 Character& Character::operator=(Character &ref) {
-    std::cout << "Character assignement operator called\n";
+    // std::cout << "Character assignement operator called\n";
     if (this == &ref)
         return (*this);
     this->m_name = ref.m_name;
     for (int i = 0; i < 4; i++) {
-        this->m_slots[i] = ref.m_slots[i];
+        if (this->m_slots[i] != NULL) {
+            AMateria::StaticDump.setDump(this->m_slots[i]);
+        }
+        if (ref.m_slots[i] != NULL) {
+            this->m_slots[i] = ref.m_slots[i]->clone();
+        } else {
+            this->m_slots[i] = NULL;
+        }
     }
     this->m_slotNumber = ref.m_slotNumber;
     return (*this);
 }
 
 Character::~Character() {
-    std::cout << "Character destructor called\n";
+    // std::cout << "Character destructor called\n";
     for (int i = 0; i < this->m_slotNumber; i++) {
         delete this->m_slots[i];
     }

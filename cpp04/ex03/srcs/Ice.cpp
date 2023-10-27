@@ -3,16 +3,16 @@
 
 
 Ice::Ice() : AMateria("ice") {
-    std::cout << "Ice constructor called\n";
+    // std::cout << "Ice constructor called\n";
 }
 
 Ice::Ice(Ice &ref) {
-    std::cout << "Ice copy constructor called\n";
+    // std::cout << "Ice copy constructor called\n";
     this->m_type = ref.m_type;
 }
 
 Ice& Ice::operator=(Ice &ref) {
-    std::cout << "Ice assignement operator called\n";
+    // std::cout << "Ice assignement operator called\n";
     if (this == &ref)
         return (*this);
     this->m_type = ref.m_type;
@@ -25,9 +25,9 @@ AMateria* Ice::clone() const {
 }
 
 Ice::~Ice() {
-    std::cout << "Ice destructor called\n";
+    // std::cout << "Ice destructor called\n";
 }
 
 void        Ice::use(ICharacter &target) {
-    std::cout << "Ice: * shoots an ice bolt at " << target.getName() << " *\n"; 
+    std::cout << "* shoots an ice bolt at " << target.getName() << " *\n"; 
 }

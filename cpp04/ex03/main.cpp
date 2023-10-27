@@ -10,11 +10,9 @@ int main() {
     rob->equip(ice);
     rob->equip(new Ice());
     rob->equip(new Ice());
+    rob->equip(new Cure());
     rob->equip(new Ice());
-    rob->equip(new Ice());
-    rob->equip(new Ice());
-    rob->equip(new Ice());
-    rob->equip(new Ice());
-    // rob->use(0, *rob);
+    
+    rob->use(3, *rob);
     delete ice;
 }
