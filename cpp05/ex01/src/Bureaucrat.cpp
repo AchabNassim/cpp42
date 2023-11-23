@@ -1,4 +1,5 @@
-#include "Bureaucrat.hpp"
+#include "../inc/Bureaucrat.hpp"
+#include "../inc/Form.hpp"
 
 // ************************** CONSTRUCTORS
 
@@ -21,8 +22,17 @@ Bureaucrat::~Bureaucrat() {
 
 // ************************** OVERLOAD
 
+Bureaucrat& Bureaucrat::operator=(Bureaucrat &ref) {
+    if (this == &ref)
+        return (*this);
+    this->grade = ref.grade;
+    return (*this);
+}
 
-
+std::ostream& operator<<(std::ostream &os, Bureaucrat &bureaucrat) {
+    os << bureaucrat.getName() << ", bureaucrat grade " << bureaucrat.getGrade();
+    return (os);
+}
 
 // ************************** GETTERS
 
@@ -55,14 +65,11 @@ void    Bureaucrat::decrementGrade() {
     this->grade++;
 }
 
-Bureaucrat& Bureaucrat::operator=(Bureaucrat &ref) {
-    if (this == &ref)
-        return (*this);
-    this->grade = ref.grade;
-    return (*this);
-}
 
-std::ostream& operator<<(std::ostream &os, Bureaucrat &bureaucrat) {
-    os << bureaucrat.getName() << ", bureaucrat grade " << bureaucrat.getGrade();
-    return (os);
+void    Bureaucrat::signForm(Bureaucrat &bureaucrat, Form &form) {
+    if (form.getIsSigned()) {
+        std::cout << bureaucrat << " signed " << form << std::endl;
+    } else {
+        std::cout << bureaucrat << " couldn't sign " << form << " Because grade is too low" << std::endl; 
+    }
 }
