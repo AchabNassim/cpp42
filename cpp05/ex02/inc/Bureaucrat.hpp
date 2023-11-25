@@ -6,7 +6,7 @@
 #include <iostream>
 #include <ostream>
 
-class Form;
+class AForm;
 
 class Bureaucrat {
     private:
@@ -39,7 +39,7 @@ class Bureaucrat {
         };
 
         // Other member function ********
-        void    signForm(Bureaucrat &bureaucrat, Form &form);
+        void    signForm(Bureaucrat &bureaucrat, AForm &form);
 };
 
 std::ostream& operator<<(std::ostream &os, Bureaucrat &bureaucrat);

@@ -45,11 +45,15 @@ void    Form::setSigned(bool status) {
 // ************************** Member functions
 
 void    Form::beSigned(Bureaucrat &bureaucrat) {
-    if (this->sign_grade >= bureaucrat.getGrade())
+    if (this->sign_grade >= bureaucrat.getGrade()) {
         setSigned(true);
-    else
+        signForm(bureaucrat, *this);
+    }
+    else {
+        setSigned(false);
+        signForm(bureaucrat,  *this);
         throw GradeTooLowException();
-    signForm(bureaucrat,  *this);
+    }
 }
 
 // ************************** Overload
@@ -63,6 +67,6 @@ Form& Form::operator=(Form &ref) {
 
 
 std::ostream& operator<<(std::ostream &os, Form &form) {
-    os << "Form name " << form.getName() << " with signing grade of " << form.getSignGrade() << " and an execution grade of " << form.getExecGrade();
+    os << "Form : name " << form.getName() << " | signing grade : " << form.getSignGrade() << " | execution grade of " << form.getExecGrade();
     return (os);
 }
