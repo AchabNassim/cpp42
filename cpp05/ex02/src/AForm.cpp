@@ -45,6 +45,18 @@ void    AForm::setSigned(bool status) {
     this->_signed = status;
 }
 
+// ************************** Methods
+
+void    AForm::beSigned(Bureaucrat &bureaucrat) {
+    if (this->sign_grade >= bureaucrat.getGrade()) {
+        setSigned(true);
+    }
+    else {
+        setSigned(false);
+        throw GradeTooLowException();
+    }
+}
+
 // ************************** Overload
 
 AForm& AForm::operator=(AForm &ref) {

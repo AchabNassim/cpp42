@@ -11,7 +11,8 @@ class PresidentialPardonForm : public AForm {
         PresidentialPardonForm(PresidentialPardonForm& ref);
         PresidentialPardonForm& operator=(PresidentialPardonForm& ref);
         ~PresidentialPardonForm();
-        void beSigned(Bureaucrat &bureaucrat);
+        void    beSigned(Bureaucrat &bureaucrat);
+        void    execute(Bureaucrat const & executor);
 };
 
 # endif

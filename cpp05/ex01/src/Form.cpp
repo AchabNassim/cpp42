@@ -47,11 +47,9 @@ void    Form::setSigned(bool status) {
 void    Form::beSigned(Bureaucrat &bureaucrat) {
     if (this->sign_grade >= bureaucrat.getGrade()) {
         setSigned(true);
-        signForm(bureaucrat, *this);
     }
     else {
         setSigned(false);
-        signForm(bureaucrat,  *this);
         throw GradeTooLowException();
     }
 }

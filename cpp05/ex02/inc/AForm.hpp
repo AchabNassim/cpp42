@@ -25,7 +25,8 @@ class AForm : public Bureaucrat {
         void    setSigned(bool status);
 
         // Other member function ********
-        virtual void    beSigned(Bureaucrat &Bureaucrat) = 0;
+        void            beSigned(Bureaucrat &Bureaucrat);
+        virtual void    execute(Bureaucrat const & executor) const = 0;
 
         // Overload ********      
         AForm& operator=(AForm &ref);

@@ -15,19 +15,16 @@ RobotomyRequestForm::RobotomyRequestForm(RobotomyRequestForm& ref) : AForm(ref.g
 RobotomyRequestForm::~RobotomyRequestForm() {
 }
 
-void    RobotomyRequestForm::beSigned(Bureaucrat &bureaucrat) {
-    if (this->getSignGrade() >= bureaucrat.getGrade() && this->getExecGrade() >= bureaucrat.getGrade()) {
-        setSigned(true);
-        signForm(bureaucrat, *this);
+void    RobotomyRequestForm::execute(Bureaucrat const &bureaucrat) const {
+    if (this->getIsSigned() && this->getExecGrade() >= bureaucrat.getGrade()) {
         static int successRate;
         if (successRate & 1)
             std::cout << "Robotomy failed :)\n";
         else
             std::cout << this->getName() << " had a successfull Robotomy :(\n";
+        successRate++;
     }
     else {
-        setSigned(false);
-        signForm(bureaucrat,  *this);
         throw GradeTooLowException();
     }
 }

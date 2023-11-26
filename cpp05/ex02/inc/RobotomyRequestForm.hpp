@@ -11,7 +11,8 @@ class RobotomyRequestForm : public AForm {
         RobotomyRequestForm(RobotomyRequestForm& ref);
         RobotomyRequestForm& operator=(RobotomyRequestForm& ref);
         ~RobotomyRequestForm();
-        void beSigned(Bureaucrat &bureaucrat);
+        void    beSigned(Bureaucrat &bureaucrat);
+        void    execute(Bureaucrat const & executor);
 };
 
 # endif

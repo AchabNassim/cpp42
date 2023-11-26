@@ -66,11 +66,12 @@ void    Bureaucrat::decrementGrade() {
 }
 
 
-void    Bureaucrat::signForm(Bureaucrat &bureaucrat, AForm &AForm) {
-    if (AForm.getIsSigned()) {
-        std::cout << bureaucrat << " \e[32msigned\e[0m " << AForm << std::endl;
-    } else {
-        std::cout << bureaucrat << " couldn't \e[31msign\e[0m " << AForm << std::endl; 
+void    Bureaucrat::signForm(AForm &form) {
+    try {
+        form.beSigned(*this);
+        std::cout << this->getName() << " signed " << form.getName() << std::endl;
+    } catch (AForm::GradeTooLowException &e) {
+        std::cout << this->getName() << " couldn't sign " << form.getName() << " because " << e.what() << std::endl;
     }
 }
 

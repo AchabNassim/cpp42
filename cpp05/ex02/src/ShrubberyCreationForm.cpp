@@ -15,10 +15,8 @@ ShrubberyCreationForm::ShrubberyCreationForm(ShrubberyCreationForm& ref) : AForm
 ShrubberyCreationForm::~ShrubberyCreationForm() {
 }
 
-void    ShrubberyCreationForm::beSigned(Bureaucrat &bureaucrat) {
-    if (this->getSignGrade() >= bureaucrat.getGrade() && this->getExecGrade() >= bureaucrat.getGrade()) {
-        setSigned(true);
-        signForm(bureaucrat, *this);
+void    ShrubberyCreationForm::execute(Bureaucrat const &bureaucrat) const {
+    if (this->getIsSigned() && this->getExecGrade() >= bureaucrat.getGrade()) {
         std::ofstream file(this->getName());
         file << "        ^\n"
                 "       ^^^\n"
@@ -32,8 +30,6 @@ void    ShrubberyCreationForm::beSigned(Bureaucrat &bureaucrat) {
                 "       |||\n";
     }
     else {
-        setSigned(false);
-        signForm(bureaucrat,  *this);
         throw GradeTooLowException();
     }
 }

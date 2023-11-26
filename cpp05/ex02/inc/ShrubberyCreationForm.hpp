@@ -11,7 +11,8 @@ class ShrubberyCreationForm : public AForm {
         ShrubberyCreationForm(ShrubberyCreationForm& ref);
         ShrubberyCreationForm& operator=(ShrubberyCreationForm& ref);
         ~ShrubberyCreationForm();
-        void beSigned(Bureaucrat &bureaucrat);
+        void    beSigned(Bureaucrat &bureaucrat);
+        void    execute(Bureaucrat const & executor);
 };
 
 # endif

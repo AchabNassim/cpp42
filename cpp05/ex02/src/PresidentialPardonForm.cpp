@@ -15,15 +15,11 @@ PresidentialPardonForm::PresidentialPardonForm(PresidentialPardonForm& ref) : AF
 PresidentialPardonForm::~PresidentialPardonForm() {
 }
 
-void    PresidentialPardonForm::beSigned(Bureaucrat &bureaucrat) {
-    if (this->getSignGrade() >= bureaucrat.getGrade() && this->getExecGrade() >= bureaucrat.getGrade()) {
-        setSigned(true);
-        signForm(bureaucrat, *this);
+void    PresidentialPardonForm::execute(Bureaucrat const &bureaucrat) const {
+    if (this->getIsSigned() && this->getExecGrade() >= bureaucrat.getGrade()) {
         std::cout << this->getName() << " has been pardoned by Zaphod Beeblebrox" << std::endl;
     }
     else {
-        setSigned(false);
-        signForm(bureaucrat,  *this);
         throw GradeTooLowException();
     }
 }

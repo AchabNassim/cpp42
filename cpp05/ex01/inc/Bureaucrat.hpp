@@ -39,7 +39,7 @@ class Bureaucrat {
         };
 
         // Other member function ********
-        void    signForm(Bureaucrat &bureaucrat, Form &form);
+        void    signForm(Form &form);
 };
 
 std::ostream& operator<<(std::ostream &os, Bureaucrat &bureaucrat);
