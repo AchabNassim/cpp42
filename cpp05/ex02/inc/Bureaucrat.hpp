@@ -1,7 +1,6 @@
 #ifndef BUREAUCRAT_HPP
 # define BUREAUCRAT_HPP
 
-#include <atomic>
 #include <exception>
 #include <iostream>
 #include <ostream>
@@ -40,6 +39,7 @@ class Bureaucrat {
 
         // Other member function ********
         void    signForm(AForm &form);
+        void    executeForm(AForm const & form);
 };
 
 std::ostream& operator<<(std::ostream &os, Bureaucrat &bureaucrat);

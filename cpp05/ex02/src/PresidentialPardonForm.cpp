@@ -1,7 +1,5 @@
 #include "../inc/PresidentialPardonForm.hpp"
 #include "../inc/Bureaucrat.hpp"
-#include <fstream>
-#include <sys/syslimits.h>
 
 PresidentialPardonForm::PresidentialPardonForm() : AForm("PresidentialPardonForm", 25, 5) {
 }
@@ -20,6 +18,6 @@ void    PresidentialPardonForm::execute(Bureaucrat const &bureaucrat) const {
         std::cout << this->getName() << " has been pardoned by Zaphod Beeblebrox" << std::endl;
     }
     else {
-        throw GradeTooLowException();
+        throw Bureaucrat::GradeTooLowException();
     }
 }

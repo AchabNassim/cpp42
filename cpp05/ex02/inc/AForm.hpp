@@ -3,7 +3,7 @@
 
 #include "Bureaucrat.hpp"
 
-class AForm : public Bureaucrat {
+class AForm {
     private:
         const std::string   name;
         bool                _signed;
@@ -16,10 +16,10 @@ class AForm : public Bureaucrat {
         virtual ~AForm();
 
         // Getters ********
-        std::string getName();
-        bool getIsSigned();
-        int getSignGrade();
-        int getExecGrade();
+        std::string getName() const;
+        bool getIsSigned() const;
+        int getSignGrade() const;
+        int getExecGrade() const;
 
         // Setter ********
         void    setSigned(bool status);

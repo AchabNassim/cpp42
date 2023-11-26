@@ -5,12 +5,9 @@
 #include <exception>
 
 int main() {
-    try {
-        PresidentialPardonForm shruberry("LOLO");
-        Bureaucrat boss("Laarbi", 10);
-        shruberry.beSigned(boss);
-    } catch (std::exception &e) {
-        std::cout << e.what() << std::endl;
-    }
+    PresidentialPardonForm pardon("LOLO");
+    Bureaucrat boss("Laarbi", 1);
+    boss.signForm(pardon);
+    boss.executeForm(pardon);
     return (0);
 }

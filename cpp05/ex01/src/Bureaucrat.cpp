@@ -61,7 +61,7 @@ void    Bureaucrat::incrementGrade() {
 
 void    Bureaucrat::decrementGrade() {
     if (this->grade + 1 > 150)
-        throw GradeTooLowException();
+        throw Bureaucrat::GradeTooLowException();
     this->grade++;
 }
 
@@ -70,7 +70,7 @@ void    Bureaucrat::signForm(Form &form) {
     try {
         form.beSigned(*this);
         std::cout << this->getName() << " signed " << form.getName() << std::endl;
-    } catch (Form::GradeTooLowException &e) {
+    } catch (Bureaucrat::GradeTooLowException &e) {
         std::cout << this->getName() << " couldn't sign " << form.getName() << " because " << e.what() << std::endl;
     }
 }

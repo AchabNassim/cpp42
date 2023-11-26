@@ -1,7 +1,6 @@
 #ifndef BUREAUCRAT_HPP
 # define BUREAUCRAT_HPP
 
-#include <atomic>
 #include <exception>
 #include <iostream>
 #include <ostream>

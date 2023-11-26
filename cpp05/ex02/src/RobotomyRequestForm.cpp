@@ -1,7 +1,5 @@
 #include "../inc/RobotomyRequestForm.hpp"
 #include "../inc/Bureaucrat.hpp"
-#include <fstream>
-#include <sys/syslimits.h>
 
 RobotomyRequestForm::RobotomyRequestForm() : AForm("RobotomyRequestForm", 72, 45) {
 }
@@ -25,6 +23,6 @@ void    RobotomyRequestForm::execute(Bureaucrat const &bureaucrat) const {
         successRate++;
     }
     else {
-        throw GradeTooLowException();
+        throw Bureaucrat::GradeTooLowException();
     }
 }

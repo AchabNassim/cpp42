@@ -1,7 +1,6 @@
 #include "../inc/ShrubberyCreationForm.hpp"
 #include "../inc/Bureaucrat.hpp"
 #include <fstream>
-#include <sys/syslimits.h>
 
 ShrubberyCreationForm::ShrubberyCreationForm() : AForm("ShrubberyCreationForm", 145, 137) {
 }
@@ -17,7 +16,7 @@ ShrubberyCreationForm::~ShrubberyCreationForm() {
 
 void    ShrubberyCreationForm::execute(Bureaucrat const &bureaucrat) const {
     if (this->getIsSigned() && this->getExecGrade() >= bureaucrat.getGrade()) {
-        std::ofstream file(this->getName());
+        std::ofstream file(this->getName().c_str());
         file << "        ^\n"
                 "       ^^^\n"
                 "      ^^^^^\n"
@@ -30,6 +29,6 @@ void    ShrubberyCreationForm::execute(Bureaucrat const &bureaucrat) const {
                 "       |||\n";
     }
     else {
-        throw GradeTooLowException();
+        throw Bureaucrat::GradeTooLowException();
     }
 }

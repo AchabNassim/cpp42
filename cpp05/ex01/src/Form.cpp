@@ -3,13 +3,13 @@
 
 Form::Form(std::string name, int sign_grade, int exec_grade) : name(name), _signed(false), sign_grade(sign_grade), exec_grade(exec_grade) {
     if (sign_grade > 150)
-        throw GradeTooLowException();
+        throw Bureaucrat::GradeTooLowException();
     else if (sign_grade < 1)
-        throw GradeTooHighException();
+        throw Bureaucrat::GradeTooHighException();
     if (exec_grade > 150)
-        throw GradeTooLowException();
+        throw Bureaucrat::GradeTooLowException();
     else if (exec_grade < 1)
-        throw GradeTooHighException();
+        throw Bureaucrat::GradeTooHighException();
 }
 
 Form::Form(Form &ref) : name(ref.name), _signed(ref._signed), sign_grade(ref.sign_grade), exec_grade(ref.exec_grade) {
@@ -20,19 +20,19 @@ Form::~Form() {
 
 // ************************** GETTERS
 
-std::string Form::getName() {
+std::string Form::getName() const {
     return (this->name);
 }
 
-bool Form::getIsSigned() {
+bool Form::getIsSigned() const {
     return (this->_signed);
 }
 
-int Form::getSignGrade() {
+int Form::getSignGrade() const {
     return (this->sign_grade);
 }
 
-int Form::getExecGrade() {
+int Form::getExecGrade() const {
     return (this->exec_grade);
 }
 
@@ -50,7 +50,7 @@ void    Form::beSigned(Bureaucrat &bureaucrat) {
     }
     else {
         setSigned(false);
-        throw GradeTooLowException();
+        throw Bureaucrat::GradeTooLowException();
     }
 }
 
