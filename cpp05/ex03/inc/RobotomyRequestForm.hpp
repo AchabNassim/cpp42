@@ -13,6 +13,8 @@ class RobotomyRequestForm : public AForm {
         ~RobotomyRequestForm();
         void    beSigned(Bureaucrat &bureaucrat);
         void    execute(Bureaucrat const & executor) const;
+
+        RobotomyRequestForm& operator=(RobotomyRequestForm& ref);
 };
 
 # endif

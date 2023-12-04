@@ -32,3 +32,9 @@ void    ShrubberyCreationForm::execute(Bureaucrat const &bureaucrat) const {
         throw Bureaucrat::GradeTooLowException();
     }
 }
+
+ShrubberyCreationForm& ShrubberyCreationForm::operator=(ShrubberyCreationForm& ref) {
+    if (this == &ref)
+        return (*this);
+    return (*this);
+}

@@ -13,6 +13,8 @@ class ShrubberyCreationForm : public AForm {
         ~ShrubberyCreationForm();
         void    beSigned(Bureaucrat &bureaucrat);
         void    execute(Bureaucrat const & executor) const;
+
+        ShrubberyCreationForm& operator=(ShrubberyCreationForm& ref);
 };
 
 # endif

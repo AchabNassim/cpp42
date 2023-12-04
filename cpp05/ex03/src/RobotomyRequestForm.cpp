@@ -26,3 +26,9 @@ void    RobotomyRequestForm::execute(Bureaucrat const &bureaucrat) const {
         throw Bureaucrat::GradeTooLowException();
     }
 }
+
+RobotomyRequestForm& RobotomyRequestForm::operator=(RobotomyRequestForm& ref) {
+    if (this == &ref)
+        return (*this);
+    return (*this);
+}

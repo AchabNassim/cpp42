@@ -21,3 +21,9 @@ void    PresidentialPardonForm::execute(Bureaucrat const &bureaucrat) const {
         throw Bureaucrat::GradeTooLowException();
     }
 }
+
+PresidentialPardonForm& PresidentialPardonForm::operator=(PresidentialPardonForm& ref) {
+    if (this == &ref)
+        return (*this);
+    return (*this);
+}
