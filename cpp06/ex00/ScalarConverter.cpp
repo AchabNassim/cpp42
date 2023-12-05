@@ -38,11 +38,6 @@ void convertToNumber(std::string string) {
 
 
 void ScalarConverter::convert(std::string string) {
-    char    c;
-    int     n;
-    float   f;
-    double  d;
-    
     convertChar(string);
     convertToNumber(string);
 }
