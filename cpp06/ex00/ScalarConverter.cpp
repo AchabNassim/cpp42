@@ -36,6 +36,9 @@ void convertToNumber(std::string string) {
     }
 }
 
+void    convertToFloat(std::string string) {
+    return ;
+}
 
 void ScalarConverter::convert(std::string string) {
     convertChar(string);
