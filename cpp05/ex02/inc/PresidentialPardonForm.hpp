@@ -13,8 +13,6 @@ class PresidentialPardonForm : public AForm {
         ~PresidentialPardonForm();
         void    beSigned(Bureaucrat &bureaucrat);
         void    execute(Bureaucrat const & executor) const;
-
-        PresidentialPardonForm& operator=(PresidentialPardonForm &ref);
 };
 
 # endif
