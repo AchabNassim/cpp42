@@ -21,7 +21,7 @@ void convertChar(std::string string) {
                 print_char(0);
             }
         } catch (std::exception &e) {
-            std::cerr << e.what() << std::endl;
+            std::cerr << "char : impossible" << std::endl;
         }
     }
 }
@@ -32,15 +32,33 @@ void convertToNumber(std::string string) {
         int nb = std::stoi(string);
         std::cout << "decimal : " << nb << std::endl;
     } catch (std::exception &e) {
-        std::cerr << e.what() << std::endl;
+        std::cerr << "decimal : impossible" << std::endl;
     }
 }
 
 void    convertToFloat(std::string string) {
-    return ;
+    try {
+        std::cout << std::fixed << std::setprecision(1);
+        float fl = static_cast<float>(std::stof(string));
+        std::cout << "float : " << fl << "f" << std::endl;
+    } catch (std::exception &e) {
+        std::cerr << "float : impossible" << std::endl;
+    }
+}
+
+void    convertToDouble(std::string string) {
+    try {
+        std::cout << std::fixed << std::setprecision(1);
+        double dbl = static_cast<float>(std::stof(string));
+        std::cout << "double : " << dbl << std::endl;
+    } catch (std::exception &e) {
+        std::cerr << "double : impossible" << std::endl;
+    }
 }
 
 void ScalarConverter::convert(std::string string) {
     convertChar(string);
     convertToNumber(string);
+    convertToFloat(string);
+    convertToDouble(string);
 }
