@@ -49,7 +49,7 @@ void    convertToFloat(std::string string) {
 void    convertToDouble(std::string string) {
     try {
         std::cout << std::fixed << std::setprecision(1);
-        double dbl = static_cast<float>(std::stof(string));
+        double dbl = static_cast<double>(std::stod(string));
         std::cout << "double : " << dbl << std::endl;
     } catch (std::exception &e) {
         std::cerr << "double : impossible" << std::endl;

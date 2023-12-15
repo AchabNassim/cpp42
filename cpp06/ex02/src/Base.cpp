@@ -3,6 +3,7 @@
 #include "../inc/B.hpp"
 #include "../inc/C.hpp"
 #include <exception>
+#include <typeinfo>
 
 Base::~Base() {
     std::cout << "Base destructor called" << std::endl;
@@ -40,18 +41,18 @@ void    Base::identify(Base& p) {
         A& a = dynamic_cast<A&>(p);
         std::cout << "Object is of type A" << std::endl;
         (void)a;
-    } catch (std::bad_exception &e) {
+    } catch (std::bad_cast &e) {
     }
     try {
         B& b = dynamic_cast<B&>(p);
         std::cout << "Object is of type B" << std::endl;
         (void)b;
-    } catch (std::bad_exception &e) {
+    } catch (std::bad_cast &e) {
     }
     try {
         C& c = dynamic_cast<C&>(p);
         std::cout << "Object is of type C" << std::endl;
         (void)c;
-    } catch (std::bad_exception &e) {
+    } catch (std::bad_cast &e) {
     }
 }
