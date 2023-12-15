@@ -6,7 +6,8 @@
 int main () {
     Base base;
     Base* pt = base.generate();
-    base.identify(*pt);
+    base.identify(pt);
+    // base.identify(*pt);
     delete pt;
     return (0);
 }
