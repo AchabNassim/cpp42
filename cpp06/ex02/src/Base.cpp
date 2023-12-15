@@ -20,3 +20,15 @@ Base* Base::generate(void) {
     }
     return (NULL);
 }
+
+void    Base::identify(Base* p) {
+    A* a = dynamic_cast<A*>(p);
+    B* b = dynamic_cast<B*>(p);
+    C* c = dynamic_cast<C*>(p);
+    if (a != NULL)
+        std::cout << "Object is of type A" << std::endl;
+    else if (b != NULL)
+        std::cout << "Object is of type B" << std::endl;
+    else if (c != NULL)
+        std::cout << "Object is of type C" << std::endl;
+}
