@@ -3,7 +3,6 @@
 #include "../inc/B.hpp"
 #include "../inc/C.hpp"
 #include <exception>
-#include <typeinfo>
 
 Base::~Base() {
     std::cout << "Base destructor called" << std::endl;
