@@ -38,9 +38,14 @@ void convertToNumber(std::string string) {
 
 void    convertToFloat(std::string string) {
     try {
-        std::cout << std::fixed << std::setprecision(1);
-        float fl = static_cast<float>(std::stof(string));
-        std::cout << "float : " << fl << "f" << std::endl;
+        if (string.compare("-inff") == 0 || string.compare("+inff") == 0 || string.compare("nan") == 0)
+            std::cout << "float : impossible" << std::endl;
+        else
+        {
+            std::cout << std::fixed << std::setprecision(1);
+            float fl = static_cast<float>(std::stof(string));
+            std::cout << "float : " << fl << "f" << std::endl;
+        }
     } catch (std::exception &e) {
         std::cerr << "float : impossible" << std::endl;
     }
@@ -48,9 +53,14 @@ void    convertToFloat(std::string string) {
 
 void    convertToDouble(std::string string) {
     try {
-        std::cout << std::fixed << std::setprecision(1);
-        double dbl = static_cast<double>(std::stod(string));
-        std::cout << "double : " << dbl << std::endl;
+        if (string.compare("-inff") == 0 || string.compare("+inff") == 0 || string.compare("nan") == 0)
+            std::cout << "float : impossible" << std::endl;
+        else
+        {
+            std::cout << std::fixed << std::setprecision(1);
+            double dbl = static_cast<double>(std::stod(string));
+            std::cout << "double : " << dbl << std::endl;
+        }
     } catch (std::exception &e) {
         std::cerr << "double : impossible" << std::endl;
     }
