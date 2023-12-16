@@ -15,3 +15,7 @@ Data& Data::operator=(Data &ref) {
 
 Data::~Data() {
 }
+
+std::string Data::getName() {
+    return (this->name);
+}

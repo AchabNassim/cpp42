@@ -10,4 +10,5 @@ class Data {
         Data(Data &ref);
         Data& operator=(Data &ref);
         ~Data();
+        std::string getName();
 };
