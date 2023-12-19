@@ -23,5 +23,10 @@ int main() {
     strArr = strCopyArray;
     std::cout << "**** copied string array ****\n";
     strArr.display();
-    while (1);
+    strArr[0] = "Modification";
+    std::cout << "**** Modified string array ****\n";
+    strArr.display();
+    std::cout << "**** Copy string array ****\n";
+    strCopyArray.display();
+    // while (1);
 }
