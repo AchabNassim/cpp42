@@ -5,6 +5,7 @@ CXX = c++
 FLAGS = -Wall -Wextra -Werror -std=c++98
 
 SRC = main.cpp
+HDR = main.hpp
 
 OBJ = $(SRC:.cpp=.o)
 
@@ -13,7 +14,7 @@ all: $(NAME)
 $(NAME) : $(OBJ)
 	$(CXX) $(FLAGS) $^ -o $@
 
-%.o: %.cpp
+%.o: %.cpp $(HDR)
 	$(CXX) $(FLAGS) -c $< -o $@
 
 clean :
