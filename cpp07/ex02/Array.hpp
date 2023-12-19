@@ -43,7 +43,7 @@ class Array {
         }
         ~Array() {delete[] array ;}
 
-        Array& operator[](size_t index) {
+        T& operator[](size_t index) {
             if (index < _size)
                 return (this->array[index]);
             else {
@@ -52,4 +52,12 @@ class Array {
             }
         }
         size_t  size() { return _size; }
+        void    display() {
+            if (this->array != NULL) {
+                for (size_t i = 0; i < _size; i++)
+                    std::cout << array[i] << std::endl;
+            } else {
+                std::cerr << "Array is empty" << std::endl;
+            }
+        }
 };
