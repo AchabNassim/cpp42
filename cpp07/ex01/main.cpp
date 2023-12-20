@@ -2,7 +2,7 @@
 
 template <typename T>
 void    print(T &elem) {
-    std::cout << elem << " " << typeid(elem).name() << std::endl;
+    std::cout << elem << " \"" << typeid(elem).name() << "\"" << std::endl;
 }
 
 int main() {
