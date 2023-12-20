@@ -14,7 +14,7 @@ all: $(NAME)
 $(NAME) : $(OBJ)
 	$(CXX) $(FLAGS) $^ -o $@
 
-%.o: %.cpp HDR
+%.o: %.cpp $(HDR)
 	$(CXX) $(FLAGS) -c $< -o $@
 
 clean :

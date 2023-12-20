@@ -14,40 +14,50 @@ class Array {
             array = new T[n];
             _size = n;
         }
-        Array(Array &ref) {
+        Array(Array &ref) : array(NULL), _size(0) {
             if (ref.array != NULL) {
-                delete[] this->array;
                 this->array = new T[ref._size];
                 this->_size = ref._size;
                 for (size_t i = 0; i < ref._size; i++) {
                     this->array[i] = ref.array[i];
                 }
             } else {
-                delete[] this->array;
                 this->array = NULL;
             }
         }
         Array& operator=(Array &ref) {
             if (ref.array != NULL) {
-                delete[] this->array;
+                if (this->array != NULL)
+                    delete[] this->array;
                 this->array = new T[ref._size];
                 this->_size = ref._size;
                 for (size_t i = 0; i < ref._size; i++) {
                     this->array[i] = ref.array[i];
                 }
             } else {
-                delete[] this->array;
+                if (this->array != NULL)
+                    delete[] this->array;
                 this->array = NULL;
             }
             return (*this);
         }
-        ~Array() {delete[] array ;}
-
+        ~Array() {
+            if (this->array != NULL)
+                delete[] this->array;
+        }
+        const T& operator[](size_t index) const {
+            if (index < _size)
+                return (this->array[index]);
+            else {
+                // std::cerr << "Index requested isn't valid" << std::endl;
+                throw std::out_of_range("Index requested isn't valid");
+            }
+        }
         T& operator[](size_t index) {
             if (index < _size)
                 return (this->array[index]);
             else {
-                std::cerr << "Index requested isn't valid" << std::endl;
+                // std::cerr << "Index requested isn't valid" << std::endl;
                 throw std::out_of_range("Index requested isn't valid");
             }
         }
