@@ -21,9 +21,4 @@ class Span {
         int     shortestSpan();
         long    longestSpan();
         int     getIndex() { return this->currentIndex ;};
-        void    printVec() {
-            for (int i = 0; i < size; i++) {
-                std::cout << "current element is " << vec[i] << std::endl;
-            }
-        }
 };

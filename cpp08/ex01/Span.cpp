@@ -5,10 +5,10 @@
 #include <stdexcept>
 #include <vector>
 
-Span::Span() : size(0), currentIndex(0) {
+Span::Span() : currentIndex(0), size(0) {
 }
 
-Span::Span(unsigned int n) : vec(n), size(n), currentIndex(0) {
+Span::Span(unsigned int n) : vec(n), currentIndex(0), size(n) {
 }
 
 Span::Span(const Span& ref) : vec(ref.vec) {
@@ -34,7 +34,7 @@ int Span::shortestSpan() {
     if (size <= 1)
         throw std::exception();
     std::sort(vec.begin(), vec.begin() + currentIndex);
-    for (int i = 0; i < currentIndex - 1; i++) {
+    for (unsigned int i = 0; i < currentIndex - 1; i++) {
         currentDistance = vec[i + 1] - vec[i];
         if (shortestDistance > currentDistance)
             shortestDistance = currentDistance;
@@ -43,9 +43,6 @@ int Span::shortestSpan() {
 }
 
 long Span::longestSpan() {
-    int longestDistance = 0;
-    int currentDistance;
-
     if (size <= 1)
         throw std::exception();
     std::vector<int>::iterator min = std::min_element(vec.begin(), vec.begin() + currentIndex);
