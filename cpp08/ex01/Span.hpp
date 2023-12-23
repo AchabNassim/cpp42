@@ -2,7 +2,7 @@
 
 #include <iostream>
 #include <vector>
-#include <Algorithm>
+#include <algorithm>
 
 class Span {
     private:
