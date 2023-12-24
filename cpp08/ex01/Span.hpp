@@ -20,5 +20,4 @@ class Span {
         void    addNumber(int n);
         int     shortestSpan();
         long    longestSpan();
-        int     getIndex() { return this->currentIndex ;};
 };

@@ -18,7 +18,7 @@ Span::~Span() {
 }
 
 void Span::addNumber(int n) {
-    if (currentIndex >= size)
+    if (currentIndex >= vec.size())
         throw std::out_of_range("index not valid");
     else {
         vec[currentIndex] = n;
@@ -31,7 +31,7 @@ int Span::shortestSpan() {
     int shortestDistance = INT_MAX;
     int currentDistance;
 
-    if (size <= 1)
+    if (vec.size() <= 1)
         throw std::exception();
     std::sort(vec.begin(), vec.begin() + currentIndex);
     for (unsigned int i = 0; i < currentIndex - 1; i++) {
@@ -43,7 +43,7 @@ int Span::shortestSpan() {
 }
 
 long Span::longestSpan() {
-    if (size <= 1)
+    if (vec.size() <= 1)
         throw std::exception();
     std::vector<int>::iterator min = std::min_element(vec.begin(), vec.begin() + currentIndex);
     std::vector<int>::iterator max = std::max_element(vec.begin(), vec.begin() + currentIndex);
