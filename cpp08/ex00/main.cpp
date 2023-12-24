@@ -2,19 +2,17 @@
 #include <iterator>
 
 int main() {
-    std::vector<int> vector;
-    for (int i = 0; i < 10; i++) {
-        vector.push_back(i);
+    std::vector<int> vec;
+    for (int i = 1; i <= 10; i++) {
+        vec.push_back(i);
     }
-    std::vector<int>::const_iterator begin = vector.begin();
-    std::vector<int>::const_iterator it = easyFind(vector, 4);
-
-    if (it != vector.end()) {
-        std::cout << *it << " found in container at position " << std::distance(begin, it) << std::endl;
+    std::vector<int>::const_iterator begin = vec.begin();
+    std::vector<int>::const_iterator it = easyFind(vec, 4);
+    if (it != vec.end()) {
+        std::cout << *it << " found at index : " << std::distance(begin, it) << std::endl;
     } else {
-        std::cout << "Element not found in container";
+        std::cout << "Iterator not found" << std::endl;
     }
-
     return 0;
 }
 
