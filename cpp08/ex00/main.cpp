@@ -1,13 +1,15 @@
 #include "easyfind.hpp"
-#include <array>
 #include <iterator>
 
 int main() {
-    std::array<int, 10> array = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-    std::array<int, 10>::const_iterator begin = array.begin();
-    std::array<int, 10>::const_iterator it = easyFind(array, 1);
+    std::vector<int> vector;
+    for (int i = 0; i < 10; i++) {
+        vector.push_back(i);
+    }
+    std::vector<int>::const_iterator begin = vector.begin();
+    std::vector<int>::const_iterator it = easyFind(vector, 4);
 
-    if (it != array.end()) {
+    if (it != vector.end()) {
         std::cout << *it << " found in container at position " << std::distance(begin, it) << std::endl;
     } else {
         std::cout << "Element not found in container";
