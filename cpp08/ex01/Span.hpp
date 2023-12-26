@@ -2,12 +2,12 @@
 
 #include <fstream>
 #include <iostream>
-#include <vector>
+#include <list>
 #include <algorithm>
 
 class Span {
     private:
-        std::vector<int> vec;
+        std::list<int>   container;
         unsigned int     currentIndex;
         unsigned int     size;
     public:
@@ -20,13 +20,13 @@ class Span {
         // methods
         void    print();
         void    addNumber(int n);
-        void    addNumber(std::vector<int>::const_iterator begin, std::vector<int>::const_iterator end);
+        void    addNumber(std::list<int>::const_iterator begin, std::list<int>::const_iterator end);
         int     shortestSpan();
         long    longestSpan();
 
-        std::vector<int>const& getVector() const;
-        std::vector<int>::const_iterator getBegin() const;
-        std::vector<int>::const_iterator getEnd() const;
+        std::list<int>const& getList() const;
+        std::list<int>::const_iterator getBegin() const;
+        std::list<int>::const_iterator getEnd() const;
         // overload
         Span& operator=(const Span& ref);
 };

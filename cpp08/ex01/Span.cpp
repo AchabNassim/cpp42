@@ -8,16 +8,16 @@
 Span::Span() : currentIndex(0), size(INT_MAX) {
 }
 
-Span::Span(unsigned int n) : vec(n), currentIndex(0), size(n) {
+Span::Span(unsigned int n) : currentIndex(0), size(n) {
 }
 
-Span::Span(const Span& ref) : vec(ref.vec), currentIndex(ref.currentIndex), size(ref.size) {
+Span::Span(const Span& ref) : container(ref.container), currentIndex(ref.currentIndex), size(ref.size) {
 }
 
 Span& Span::operator=(const Span& ref) {
     if (this == &ref)
         return (*this);
-    vec = ref.vec;
+    container = ref.container;
     this->size = ref.size;
     this->currentIndex = ref.currentIndex;
     return (*this);
@@ -30,60 +30,64 @@ void Span::addNumber(int n) {
     if (currentIndex >= size)
         throw std::out_of_range("index not valid");
     else {
-        vec[currentIndex] = n;
+        container.push_back(n);
         currentIndex++;
     }
 }
 
-void Span::addNumber(std::vector<int>::const_iterator begin, std::vector<int>::const_iterator end) {
+void Span::addNumber(std::list<int>::const_iterator begin, std::list<int>::const_iterator end) {
     if (std::distance(begin, end) > size - currentIndex)
-        throw std::out_of_range("Not enough space in Span");
-    std::copy(begin, end, vec.begin() + currentIndex);
-    currentIndex += std::distance(begin, end);
+        throw std::out_of_range("index not valid");
+    else {
+        container.assign(begin, end);
+        currentIndex += std::distance(begin, end);
+    }
 }
 
 
-int Span::shortestSpan() {
-    std::vector<int> sortedVector(vec.begin(), vec.begin() + currentIndex);
-    int shortestDistance = INT_MAX;
-    int currentDistance;
 
-    if (size <= 1)
-        throw std::exception();
-    std::sort(sortedVector.begin(), sortedVector.begin() + currentIndex);
-    for (unsigned int i = 0; i < currentIndex - 1; i++) {
-        currentDistance = sortedVector[i + 1] - sortedVector[i];
-        if (shortestDistance > currentDistance)
-            shortestDistance = currentDistance;
+int Span::shortestSpan() {
+    if (currentIndex <= 1) {
+        throw std::out_of_range("index not valid");
+    }
+    std::list<int> sortedList(container.begin(), container.end());
+    int currentDistance;
+    int shortestDistance = INT_MAX;
+    sortedList.sort();
+    for (std::list<int>::iterator node = sortedList.begin(); node != sortedList.end(); node++) {
+        std::list<int>::iterator nextNode = node;
+        ++nextNode;
+        if (nextNode != sortedList.end()) {
+            currentDistance = *nextNode - *node;
+            if (shortestDistance > currentDistance)
+                shortestDistance = currentDistance;
+        }
     }
     return (shortestDistance);
 }
 
 long Span::longestSpan() {
-    if (size <= 1)
-        throw std::exception();
-    std::vector<int>::iterator min = std::min_element(vec.begin(), vec.begin() + currentIndex);
-    std::vector<int>::iterator max = std::max_element(vec.begin(), vec.begin() + currentIndex);
-    if (min != vec.end() && max != vec.end()) {
-        return (*max - *min);
-    }
-    return (0);
+    if (currentIndex <= 1)
+        throw std::out_of_range("index not valid");
+    std::list<int>::iterator min = std::min_element(container.begin(), container.end());
+    std::list<int>::iterator max = std::max_element(container.begin(), container.end());
+    return (*max - *min);
 }
 
-std::vector<int>::const_iterator Span::getBegin() const {
-    return (this->vec.begin());
+std::list<int>::const_iterator Span::getBegin() const {
+    return (container.begin());
 }
 
-std::vector<int>::const_iterator Span::getEnd() const {
-    return (this->vec.end());
+std::list<int>::const_iterator Span::getEnd() const {
+    return (container.end());
 }
 
-std::vector<int>const& Span::getVector() const {
-    return (this->vec);
+std::list<int>const& Span::getList() const {
+    return (this->container);
 }
 
 void    Span::print() {
-    for (std::vector<int>::const_iterator it = this->vec.begin(); it != this->vec.end(); it++) {
+    for (std::list<int>::iterator it = container.begin(); it != container.end(); it++) {
         std::cout << *it << std::endl;
     }
 }
