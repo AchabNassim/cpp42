@@ -4,7 +4,7 @@ CXX = c++
 
 FLAGS = -Wall -Wextra -Werror -std=c++98
 
-SRC = main.cpp Span.cpp
+SRC = main.cpp Span2.cpp
 HDR = Span.hpp
 
 OBJ = $(SRC:.cpp=.o)

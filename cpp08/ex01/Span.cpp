@@ -44,14 +44,15 @@ void Span::addNumber(std::vector<int>::const_iterator begin, std::vector<int>::c
 
 
 int Span::shortestSpan() {
+    std::vector<int> sortedVector(vec.begin(), vec.begin() + currentIndex);
     int shortestDistance = INT_MAX;
     int currentDistance;
 
     if (size <= 1)
         throw std::exception();
-    std::sort(vec.begin(), vec.begin() + currentIndex);
+    std::sort(sortedVector.begin(), sortedVector.begin() + currentIndex);
     for (unsigned int i = 0; i < currentIndex - 1; i++) {
-        currentDistance = vec[i + 1] - vec[i];
+        currentDistance = sortedVector[i + 1] - sortedVector[i];
         if (shortestDistance > currentDistance)
             shortestDistance = currentDistance;
     }
