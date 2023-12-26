@@ -1,9 +1,7 @@
 #include "Span.hpp"
-#include <algorithm>
 #include <climits>
 #include <exception>
 #include <stdexcept>
-#include <vector>
 
 Span::Span() : currentIndex(0), size(INT_MAX) {
 }
