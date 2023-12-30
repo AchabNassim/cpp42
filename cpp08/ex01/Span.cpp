@@ -84,8 +84,15 @@ std::list<int>const& Span::getList() const {
     return (this->container);
 }
 
-void    Span::print() {
-    for (std::list<int>::iterator it = container.begin(); it != container.end(); it++) {
-        std::cout << *it << std::endl;
+// void    Span::print() {
+//     for (std::list<int>::iterator it = container.begin(); it != container.end(); it++) {
+//         std::cout << *it << std::endl;
+//     }
+// }
+
+std::ostream& operator<<(std::ostream &os, const Span &ref) {
+    for (std::list<int>::const_iterator it = ref.getBegin(); it != ref.getEnd(); it++) {
+        os << *it << std::endl;
     }
+    return (os);
 }

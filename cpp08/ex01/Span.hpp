@@ -18,7 +18,7 @@ class Span {
         ~Span();
 
         // methods
-        void    print();
+        // void    print();
         void    addNumber(int n);
         void    addNumber(std::list<int>::const_iterator begin, std::list<int>::const_iterator end);
         int     shortestSpan();
@@ -31,4 +31,4 @@ class Span {
         Span& operator=(const Span& ref);
 };
 
-std::ofstream& operator<<(std::ofstream &os, const Span &ref);
+std::ostream& operator<<(std::ostream &os, const Span &ref);
