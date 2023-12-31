@@ -22,6 +22,6 @@ int main()
     std::cout << *it << std::endl;
     ++it;
     }
-    std::stack<int, std::list<int>> s(mstack);
+    std::stack<int, std::list<int> > s(mstack);
     return 0;
 }
