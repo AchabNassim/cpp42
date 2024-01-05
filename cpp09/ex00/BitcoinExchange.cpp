@@ -1,11 +1,37 @@
 #include "BitcoinExchange.hpp"
 
+BitcoinExchange::BitcoinExchange() {
+}
+
+BitcoinExchange::BitcoinExchange(std::string fileName) {
+    storeRateDb();
+    storeCurrentDb(fileName);
+}
+
+BitcoinExchange::BitcoinExchange(const BitcoinExchange& ref) {
+    this->RateDb = ref.getRateDb();
+    this->currentDb = ref.getCurrentDb();
+}
+
+BitcoinExchange& BitcoinExchange::operator=(const BitcoinExchange& ref) {
+    this->RateDb = ref.getRateDb();
+    this->currentDb = ref.getCurrentDb();
+    return (*this);
+}
+
+BitcoinExchange::~BitcoinExchange() {
+}
+
+
+// Methods
+
 std::string&    myTrim(std::string &s) {
     int i = 0;
     while (i < s.size() && std::isspace(s[i])) {
         i++;
     }
     s.erase(0, i);
+    std::cout << s << std::endl;
     return (s);
 }
 
@@ -84,7 +110,7 @@ void    BitcoinExchange::storeCurrentDb(std::string filename) {
         std::string rate;
         std::getline(ss, date, ',');
         std::getline(ss, rate, ',');
-        if (date.compare("date") != 0 && date.compare("exchange_rate") != 0) {
+        if (date.compare("date") != 0 && rate.compare("exchange_rate") != 0) {
             try {
                 if (invalid_string(rate)) {
                     this->RateDb[myTrim(date)] = -1;

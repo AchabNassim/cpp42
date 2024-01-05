@@ -6,11 +6,7 @@
 
 int main(int argc, char **argv) {
     if (argc == 2) {
-        std::cout << argv[1] << std::endl;
-        BitcoinExchange bitcoin;
-        bitcoin.storeRateDb();
-        std::map<std::string, double> map = bitcoin.getRateDb();
-        std::cout << map.begin()->first << std::endl;
+        BitcoinExchange bitcoin(argv[1]);
     }
     return (0);
 }
