@@ -10,12 +10,12 @@ BitcoinExchange::BitcoinExchange(std::string fileName) {
 
 BitcoinExchange::BitcoinExchange(const BitcoinExchange& ref) {
     this->RateDb = ref.getRateDb();
-    this->currentDb = ref.getCurrentDb();
+    // this->currentDb = ref.getCurrentDb();
 }
 
 BitcoinExchange& BitcoinExchange::operator=(const BitcoinExchange& ref) {
     this->RateDb = ref.getRateDb();
-    this->currentDb = ref.getCurrentDb();
+    // this->currentDb = ref.getCurrentDb();
     return (*this);
 }
 
@@ -25,21 +25,37 @@ BitcoinExchange::~BitcoinExchange() {
 
 // Methods
 
-std::string    myTrim(std::string &s) {
-    int i = 0;
-    while (i < s.size() && std::isspace(s[i])) {
-        i++;
-    }
-    s.erase(0, i);
-    return (s);
-}
+// std::string    myTrim(std::string &s) {
+//     int i = 0;
+//     while (i < s.size() && std::isspace(s[i])) {
+//         i++;
+//     }
+//     s.erase(0, i);
+//     return (s);
+// }
 
 int invalid_string(std::string string) {
+    int point = 0;
     for (int i = 0; i < string.size(); i++) {
         if (!isdigit(string[i]) && string[i] != ' ' && string[i] != '\t' && string[i] != '\n') {
             return (1);
-        }
+        } 
+        if (string[i] == '.')
+            point++;
     }
+    if (point > 1)
+        return (-1);
+    return (0);
+}
+
+int check_delim(std::string string) {
+    int delim = 0;
+    for (int i = 0; i < string.size(); i++) {
+        if (string[i] == '|')
+            delim++;
+    }
+    if (delim != 1)
+        return (-1);
     return (0);
 }
 
@@ -149,13 +165,13 @@ void    BitcoinExchange::storeCurrentDb(std::string filename) {
             try {
                 // std::cout << "date == " << date << " rate == " << rate << std::endl;
                 if (check_date(date) == -1 || check_rate(rate) == -1) {
-                    this->currentDb[myTrim(date)] = -1;
+                    // this->currentDb[myTrim(date)] = -1;
                 } else {
                     double  rateVal = std::stod(rate);
-                    this->currentDb[myTrim(date)] = rateVal;
+                    // this->currentDb[myTrim(date)] = rateVal;
                 }
             } catch (std::exception &e) {
-                this->currentDb[myTrim(date)] = -1;
+                // this->currentDb[myTrim(date)] = -1;
             }
         }
     }
@@ -165,9 +181,9 @@ const std::map<std::string, double>& BitcoinExchange::getRateDb() const {
     return (this->RateDb);
 }
 
-const std::map<std::string, double>& BitcoinExchange::getCurrentDb() const {
-    return (this->currentDb);
-}
+// const std::map<std::string, double>& BitcoinExchange::getCurrentDb() const {
+//     return (this->currentDb);
+// }
 
 
 std::ostream& operator<<(std::ostream& os, const std::map<std::string, double> &ref) {
