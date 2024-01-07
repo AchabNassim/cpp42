@@ -110,13 +110,21 @@ int check_date(std::string string) {
 
 int check_rate(std::string rate) {
     double  rateVal;
-    if (invalid_string(rate))
+    if (invalid_string(rate)) {
+        std::cout << "Error: bad input\n";
         return (-1);
+    }
     try {
         rateVal = std::stod(rate);
-        if (rateVal < 0 || rateVal > 1000)
+        if (rateVal > 1000) {
+            std::cout << "Error: too large number\n";
             return (-1);
+        } else if (rateVal < 0) {
+            std::cout << "Error: not a positive number\n";
+            return (-1);
+        }
     } catch(std::exception &e) {
+        std::cout << "Error: bad input\n";
         return (-1);
     }
     return (0);
@@ -156,6 +164,10 @@ void    BitcoinExchange::storeCurrentDb(std::string filename) {
         exit (1);
     }
     while (std::getline(inFile, line)) {
+        if (check_delim(line) == -1) {
+            std::cout << "Error: bad input => no delim\n";
+            continue ;
+        }
         std::istringstream ss(line);
         std::string date;
         std::string rate;
