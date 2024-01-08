@@ -1,3 +1,4 @@
+#include <sstream>
 #include <fstream>
 #include <iostream>
 #include <iomanip>
@@ -7,8 +8,7 @@
 class BitcoinExchange {
     private:
         std::map<std::string, double>   RateDb;
-        // std::map<std::string, double>   currentDb;
-        double                          profit;
+        // double                          profit;
     public:
         BitcoinExchange();
         BitcoinExchange(std::string fileName);
@@ -16,10 +16,11 @@ class BitcoinExchange {
         ~BitcoinExchange();
 
         void    storeRateDb();
-        void    storeCurrentDb(std::string filename); 
+        void    calculateRate(std::string filename); 
         const std::map<std::string, double>& getRateDb() const;
-        // const std::map<std::string, double>& getCurrentDb() const;
         BitcoinExchange& operator=(const BitcoinExchange& ref);
+
+        void findDate(std::string date, double rate);
 };
 
 std::ostream& operator<<(std::ostream& os, const std::map<std::string, double> &ref);
