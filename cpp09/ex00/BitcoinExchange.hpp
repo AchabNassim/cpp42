@@ -8,7 +8,6 @@
 class BitcoinExchange {
     private:
         std::map<std::string, double>   RateDb;
-        // double                          profit;
     public:
         BitcoinExchange();
         BitcoinExchange(std::string fileName);
