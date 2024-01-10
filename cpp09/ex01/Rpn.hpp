@@ -4,12 +4,14 @@
 
 class Rpn {
     private:
-        std::stack<char> stack;
+        std::stack<int> stack;
     public:
         Rpn();
         Rpn(const Rpn& ref);
         Rpn& operator=(const Rpn& ref);
         ~Rpn();
         void    addElement(char c);
-        std::stack<char>& getStack();
+        std::stack<int>& getStack();
 };
+
+std::ostream& operator<<(std::ostream& os, std::stack<int> stack);
