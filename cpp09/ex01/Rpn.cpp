@@ -1,6 +1,16 @@
 #include "Rpn.hpp"
 
-Rpn::Rpn() {}
+Rpn::Rpn(const std::string fileName) {
+    std::istringstream ss(fileName);
+    std::string buffer;
+    while (std::getline(ss, buffer, ' ')) {
+        if (buffer.size() > 1) {
+            std::cerr << "Error: Please enter a valid argument" << std::endl;
+            exit (1);
+        }
+        this->addElement(buffer[0]);
+    }
+}
 
 Rpn::Rpn(const Rpn &ref) {
     this->stack = ref.stack;
@@ -32,14 +42,12 @@ int    operation(int n1, int n2, char op) {
 void    Rpn::addElement(char currentCell) {
     std::stack<int>&        stack = this->getStack();
     static int              oper = 0;
-    static int              foundOp = 0;
     int                     currentNb = 0;
     int                     previousNb = 0;
 
     if (currentCell == '+' || currentCell == '-' || currentCell == '*' || currentCell == '/') {
         // std::cout << "operator is == " << currentCell << std::endl;
         oper += 1;
-        foundOp++;
         if (oper > 1) {
             std::cerr << "Error: please enter a valid number of operators" << std::endl;
             return ;
@@ -54,12 +62,11 @@ void    Rpn::addElement(char currentCell) {
             // std::cout << operation(previousNb, currentNb, currentCell) << std::endl;
             stack.push(operation(previousNb, currentNb, currentCell));
             oper--;
-        } 
-    } else if (isdigit(currentCell)) {
-        if (foundOp > 0) {
+        } else {
             std::cerr << "Error: invalid reverse polish notation" << std::endl;
             exit (1);
         }
+    } else if (isdigit(currentCell)) {
         stack.push(currentCell - 48);
         // std::cout << stack.top() << std::endl;
     } else {

@@ -1,9 +1,3 @@
-#include <_ctype.h>
-#include <sstream>
-#include <stack>
-#include <algorithm>
-#include <iostream>
-#include <string>
 #include "Rpn.hpp"
 
 // void    fillRequestedOperator(int* arr, char op) {
@@ -65,21 +59,11 @@
 // }
 
 int main(int ac, char **av) {
-    Rpn rpn;
-
     if (ac != 2) {
         std::cerr << "Error: Please enter a valid number of arguments" << std::endl;
         return (0);
     }
-    std::string string = av[1];
-    std::istringstream ss(string);
-    std::string buffer;
-    while (std::getline(ss, buffer, ' ')) {
-        if (buffer.size() > 1) {
-            std::cerr << "Error: Please enter a valid argument" << std::endl;
-        }
-        rpn.addElement(buffer[0]);
-    }
+    Rpn rpn(av[1]);
     std::cout << rpn.getStack();
     return (0);
 }
