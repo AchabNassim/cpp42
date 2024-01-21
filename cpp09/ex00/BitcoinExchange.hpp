@@ -19,6 +19,11 @@ class BitcoinExchange {
         const std::map<std::string, double>& getRateDb() const;
         BitcoinExchange& operator=(const BitcoinExchange& ref);
 
+        std::string&    myTrim(std::string &s, char c);
+        int invalid_string(std::string string, char c);
+        int check_delim(std::string string, char c);
+        int check_date(std::string string);
+        int check_rate(std::string rate);
         void findDate(std::string date, double rate);
 };
 
