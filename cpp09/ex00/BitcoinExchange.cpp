@@ -1,5 +1,5 @@
 #include "BitcoinExchange.hpp"
-#include <sys/_types/_size_t.h>
+// #include <sys/_types/_size_t.h>
 
 BitcoinExchange::BitcoinExchange() {
 }
@@ -24,7 +24,7 @@ BitcoinExchange::~BitcoinExchange() {
 
 // Methods
 
-std::string&    myTrim(std::string &s, char c) {
+std::string&    BitcoinExchange::myTrim(std::string &s, char c) {
     size_t  i = 0;
     size_t  j = s.size() - 1;
     while (i < s.size() && std::isspace(s[i])) {
@@ -39,7 +39,7 @@ std::string&    myTrim(std::string &s, char c) {
     return (s);
 }
 
-int invalid_string(std::string string, char c) {
+int BitcoinExchange::invalid_string(std::string string, char c) {
     int point = 0;
     int sign = 0;
     for (size_t i = 0; i < string.size(); i++) {
@@ -62,7 +62,7 @@ int invalid_string(std::string string, char c) {
     return (0);
 }
 
-int check_delim(std::string string, char c) {
+int BitcoinExchange::check_delim(std::string string, char c) {
     int occ = 0;
     for (size_t i = 0; i < string.size(); i++) {
         if (string[i] == c)
@@ -73,7 +73,7 @@ int check_delim(std::string string, char c) {
     return (0);
 }
 
-int check_date(std::string string) {
+int BitcoinExchange::check_date(std::string string) {
     std::istringstream format(string);
     std::string buffer;
     double      dateVal;
@@ -113,7 +113,7 @@ int check_date(std::string string) {
     return (0);
 }
 
-int check_rate(std::string rate) {
+int BitcoinExchange::check_rate(std::string rate) {
     double  rateVal;
     if (invalid_string(rate, 'r')) {
         std::cout << "Error: bad input\n";
@@ -186,6 +186,11 @@ void    BitcoinExchange::calculateRate(std::string filename) {
         exit (1);
     }
     while (std::getline(inFile, line)) {
+        if (this->invalid_string(line, 'r') == -1)
+        {
+            std::cerr << "Error:bad input" << std::endl;
+            continue ;
+        }
         if (check_delim(line, '|') == -1) {
             std::cout << "Error: bad input => no delim\n";
             continue ;
