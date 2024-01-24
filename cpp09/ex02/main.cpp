@@ -1,130 +1,104 @@
 #include <iostream>
-#include <iterator>
 #include <vector>
-#include <cmath>
+#include <algorithm>
 
-typedef std::vector<int> vec;
-std::ostream& operator<<(std::ostream &os, vec vector);
-int comparisons;
-
-int binarySearch(const vec& arr, int low, int high, int key) {
-    while (low <= high) {
-        int mid = low + (high - low) / 2;
-
-        if (arr[mid] == key) {
-            comparisons++;
-            return mid;
-        }
-        else if (arr[mid] < key) {
-            comparisons++;
-            low = mid + 1;
-        }
-        else {
-            comparisons++;
-            high = mid - 1;
-        }
+int comparisons = 0;
+std::ostream& operator<<(std::ostream &os, std::vector<int> vector) {
+    for (int i = 0; i < vector.size(); i++) {
+        os << vector[i] << " ";
     }
-
-    return low;
+    os << std::endl;
+    return (os);
 }
 
-void binaryInsertionSort(vec& arr) {
-    int n = arr.size();
-
-    for (int i = 1; i < n; i++) {
+void binaryInsertionSort(std::vector<int>& arr) {
+    for (int i = 1; i < arr.size(); ++i) {
         int key = arr[i];
-        int j = i - 1;
+        int low = 0, high = i - 1;
 
-        // Find the correct position for the key using binary search
-        int pos = binarySearch(arr, 0, j, key);
-
-        // Shift elements to the right to make space for the key
-        while (j >= pos) {
+        while (low <= high) {
+            comparisons++;
+            int mid = (low + high) / 2;
+            if (arr[mid] < key) {
+                low = mid + 1;
+            } else {
+                high = mid - 1;
+            }
+        }
+        for (int j = i - 1; j >= low; --j) {
             arr[j + 1] = arr[j];
-            j--;
         }
-
-        // Insert the key at its correct position
-        arr[j + 1] = key;
+        arr[low] = key;
     }
 }
 
-void binarySearchInsertion(vec& mainChain, int b) {
-    int low = 0;
-    int high = mainChain.size() - 1;
 
-    while (low <= high) {
-        int mid = (low + high) / 2;
-
-        if (mainChain[mid] < b) {
+void sortPair(std::vector<int> &pair) {
+    for (int i = 0; i < pair.size(); i++) {
+        if (i + 1 < pair.size()) {
             comparisons++;
-            low = mid + 1;
-        } else {
-            comparisons++;
-            high = mid - 1;
-        }
-    }
-    mainChain.insert(mainChain.begin() + low, b);
-}
-
-
-
-void sortA(vec &vec) {
-    for (int i = 0; i < vec.size() - 1; i++) {
-        if (vec[i] > vec[i + 1]) {
-            int temp = vec[i];
-            vec[i] = vec[i + 1];
-            vec[i + 1] = temp;
-            comparisons++;
+            int temp = pair[0];
+            pair[0] = pair[i + 1];
+            pair[1] = temp;
         }
     }
 }
 
-vec mergeSort(vec vector) {
-    std::vector<vec> pairs;
-    vec mainChain;
-    vec pend;
-    for (int i = 0; i < vector.size(); i += 2) {
-        vec pair;
-        pair.push_back(vector[i]);
-        if (i + 1 < vector.size()) {
-            pair.push_back(vector[i + 1]);
+bool comparefirstElement(std::vector<int> &first, std::vector<int> &second) {
+    comparisons++;
+    return (first[0] < second[0]);
+}
+
+bool lowerBoundCompare(int a, int b) {
+    comparisons++;
+    return (a < b);
+}
+
+void makePairs(std::vector<std::vector<int> > &pairs, std::vector<int> &array) {
+    for (int i = 0; i < array.size(); i += 2) {
+        std::vector<int> pair;
+        pair.push_back(array[i]);
+        if (i + 1 < array.size()) {
+            pair.push_back(array[i + 1]);
         }
-        sortA(pair);
+        sortPair(pair);
         pairs.push_back(pair);
     }
+}
+
+void    fillChains(std::vector<std::vector<int> > &pairs,std::vector<int> &main, std::vector<int> &pend) {
     for (int i = 0; i < pairs.size(); i++) {
-        mainChain.push_back(pairs[i][0]);
-        if (pairs.size() > 1) {
+        if (pairs[i].size() == 2) {
+            main.push_back(pairs[i][0]);
             pend.push_back(pairs[i][1]);
         } else {
             pend.push_back(pairs[i][0]);
         }
     }
-    binaryInsertionSort(mainChain);
-    while (pend.size() > 0) {
-        binarySearchInsertion(mainChain, pend[0]);
-        pend.erase(pend.begin());
-    }
-    for (int i = 0; i < pairs.size(); i++) {
-        std::cout << pairs[i] << std::endl;
-    }
-    std::cout << mainChain << std::endl;
-    return (vector);
 }
 
+// Function to implement the Merge Insertion Sort algorithm
+void mergeInsertionSort(std::vector<int>& vec) {
+    std::vector<std::vector<int> > pairs;
+    std::vector<int> main;
+    std::vector<int> pend;
+    
+    makePairs(pairs, vec);
+    std::sort(pairs.begin(), pairs.end(), comparefirstElement);
+    fillChains(pairs, main, pend);
+    for (int i = 0; i < pend.size(); i++) {
+        main.insert(std::lower_bound(main.begin(), main.end(), pend[i], lowerBoundCompare), pend[i]);
+    }
+    std::cout << main << std::endl;
+}
 
 int main() {
-    int arr[] = {4,1,8,5,3,12,2,11,13,15,14,80,52,54,71,9,17,47,42,35,1};
-    vec vector(arr, arr + sizeof(arr) / sizeof(arr[0]));
-    mergeSort(vector);
-    std::cout << "sorted in " << comparisons << std::endl;
-    return (0);
-}
+    int arr[] = {67, 23, 45, 12, 89, 56, 34, 78, 98, 21, 55, 87, 32, 9, 41, 76, 63, 18, 50, 27, 14};
+    std::vector<int> vec(arr, arr + sizeof(arr) / sizeof(arr[0]));
 
-std::ostream& operator<<(std::ostream &os, vec vector) {
-    for (vec::iterator it = vector.begin(); it != vector.end(); it++) {
-        std::cout << *it << std::endl;
-    }
-    return (os);
+    
+
+    mergeInsertionSort(vec);
+    std::cout << "Number of comparisons == " << comparisons << std::endl;
+    return 0;
 }
