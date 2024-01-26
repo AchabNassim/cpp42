@@ -1,3 +1,4 @@
+#include <cstdlib>
 #include <iostream>
 #include <vector>
 #include <algorithm>
@@ -7,8 +8,53 @@ std::ostream& operator<<(std::ostream &os, std::vector<int> vector) {
     for (int i = 0; i < vector.size(); i++) {
         os << vector[i] << " ";
     }
+    // os << std::endl;
+    return (os);
+}
+
+std::ostream& operator<<(std::ostream &os, std::vector<std::vector<int> > vector) {
+    for (int i = 0; i < vector.size(); i++) {
+        os << vector[i] << " | ";
+    }
     os << std::endl;
     return (os);
+}
+
+std::vector<std::vector<int> > merge(const std::vector<std::vector<int> >& left, const std::vector<std::vector<int> >& right) {
+    std::vector<std::vector<int> > result;
+    size_t i = 0, j = 0;
+
+    while (i < left.size() && j < right.size()) {
+        if (left[i][1] < right[j][1]) {
+            result.push_back(left[i]);
+            ++i;
+        } else {
+            result.push_back(right[j]);
+            ++j;
+        }
+        comparisons++;
+    }
+
+    // Append the remaining elements
+    result.insert(result.end(), left.begin() + i, left.end());
+    result.insert(result.end(), right.begin() + j, right.end());
+
+    return result;
+}
+
+// Merge Sort function
+std::vector<std::vector<int> > mergeSort(const std::vector<std::vector<int> >& vec) {
+    if (vec.size() <= 1) {
+        return vec;
+    }
+
+    size_t middle = vec.size() / 2;
+    std::vector<std::vector<int> > left(vec.begin(), vec.begin() + middle);
+    std::vector<std::vector<int> > right(vec.begin() + middle, vec.end());
+
+    left = mergeSort(left);
+    right = mergeSort(right);
+    return merge(left, right);
 }
 
 void binaryInsertionSort(std::vector<int>& arr) {
@@ -34,12 +80,10 @@ void binaryInsertionSort(std::vector<int>& arr) {
 
 
 void sortPair(std::vector<int> &pair) {
-    for (int i = 0; i < pair.size(); i++) {
-        if (i + 1 < pair.size()) {
+    if (pair.size() > 1) {
+        if (pair[1] < pair[0]) {
+            std::swap(pair[0], pair[1]);
             comparisons++;
-            int temp = pair[0];
-            pair[0] = pair[i + 1];
-            pair[1] = temp;
         }
     }
 }
@@ -75,18 +119,6 @@ void    fillChains(std::vector<std::vector<int> > &pairs,std::vector<int> &main,
     }
 }
 
-std::vector<int> generateJacobsthalSequence(int n) {
-    std::vector<int> sequence;
-    int a = 0, b = 1;
-    for (int i = 0; i < n; ++i) {
-        sequence.push_back(a);
-        int temp = a;
-        a = b;
-        b = a + 2 * temp;
-    }
-    return sequence;
-}
-
 std::vector<int> buildJacobsthalSequence(int length) {
     std::vector<int> sequence;
     sequence.push_back(0);
@@ -111,19 +143,20 @@ void mergeInsertionSort(std::vector<int>& vec) {
         vec.pop_back();
     }
     makePairs(pairs, vec);
-    std::sort(pairs.begin(), pairs.end(), comparefirstElement);
+    pairs = mergeSort(pairs);
     fillChains(pairs, main, pend);
-    std::vector<int> jacobsthalSeq = buildJacobsthalSequence(pend.size());
-    for (int i = 0; i < pend.size(); i++) {
-        int insertionIndex = jacobsthalSeq[i];
-        if (jacobsthalSeq[i] < pend.size())
-            main.insert(std::lower_bound(main.begin(), main.end(), pend[insertionIndex], lowerBoundCompare), pend[insertionIndex]);
-        else
-            main.insert(std::lower_bound(main.begin(), main.end(), pend[i], lowerBoundCompare), pend[i]);
+    for (int i = 0; pend.size() > 0; i++) {
+        std::vector<int> jacobsthalSeq = buildJacobsthalSequence(pend.size());
+        int index = jacobsthalSeq[i];
+        if (index < pend.size()) {
+            main.insert(std::lower_bound(main.begin(), main.end(), pend[index], lowerBoundCompare), pend[index]);
+            pend.erase(pend.begin() + index);
+        }
     }
     if (straggler != -1)
         main.insert(std::lower_bound(main.begin(), main.end(), straggler, lowerBoundCompare), straggler);
     std::cout << main << std::endl;
+    std::cout << pend << std::endl;
 }
 
 int main() {
