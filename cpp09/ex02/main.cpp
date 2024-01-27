@@ -35,14 +35,12 @@ std::vector<std::vector<int> > merge(const std::vector<std::vector<int> >& left,
         comparisons++;
     }
 
-    // Append the remaining elements
     result.insert(result.end(), left.begin() + i, left.end());
     result.insert(result.end(), right.begin() + j, right.end());
 
     return result;
 }
 
-// Merge Sort function
 std::vector<std::vector<int> > mergeSort(const std::vector<std::vector<int> >& vec) {
     if (vec.size() <= 1) {
         return vec;
@@ -56,28 +54,6 @@ std::vector<std::vector<int> > mergeSort(const std::vector<std::vector<int> >& v
     right = mergeSort(right);
     return merge(left, right);
 }
-
-void binaryInsertionSort(std::vector<int>& arr) {
-    for (int i = 1; i < arr.size(); ++i) {
-        int key = arr[i];
-        int low = 0, high = i - 1;
-
-        while (low <= high) {
-            comparisons++;
-            int mid = (low + high) / 2;
-            if (arr[mid] < key) {
-                low = mid + 1;
-            } else {
-                high = mid - 1;
-            }
-        }
-        for (int j = i - 1; j >= low; --j) {
-            arr[j + 1] = arr[j];
-        }
-        arr[low] = key;
-    }
-}
-
 
 void sortPair(std::vector<int> &pair) {
     if (pair.size() > 1) {
@@ -145,9 +121,11 @@ void mergeInsertionSort(std::vector<int>& vec) {
     makePairs(pairs, vec);
     pairs = mergeSort(pairs);
     fillChains(pairs, main, pend);
-    for (int i = 0; pend.size() > 0; i++) {
-        std::vector<int> jacobsthalSeq = buildJacobsthalSequence(pend.size());
-        int index = jacobsthalSeq[i];
+    main.insert(main.begin(), pend[0]);
+    pend.erase(pend.begin());
+    std::vector<int> jacobsthalSeq = buildJacobsthalSequence(pend.size());
+    for (int i = 0; pend.size() > 0; i--) {
+        int index = jacobsthalSeq[i]; 
         if (index < pend.size()) {
             main.insert(std::lower_bound(main.begin(), main.end(), pend[index], lowerBoundCompare), pend[index]);
             pend.erase(pend.begin() + index);
@@ -160,7 +138,7 @@ void mergeInsertionSort(std::vector<int>& vec) {
 }
 
 int main() {
-    int arr[] = {67, 23, 45, 12, 89, 56, 34, 78, 98, 21, 55, 87, 32, 9, 41, 76, 63, 18, 50, 27, 14};
+    int arr[] = {5, 18, 27, 42, 14, 63, 91, 20, 7, 55, 33, 77, 12, 48, 30, 8, 16, 92, 41, 25, 60};
     std::vector<int> vec(arr, arr + sizeof(arr) / sizeof(arr[0]));
 
     
