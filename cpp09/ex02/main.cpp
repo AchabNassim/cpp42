@@ -124,7 +124,7 @@ void mergeInsertionSort(std::vector<int>& vec) {
     main.insert(main.begin(), pend[0]);
     pend.erase(pend.begin());
     std::vector<int> jacobsthalSeq = buildJacobsthalSequence(pend.size());
-    for (int i = 0; pend.size() > 0; i--) {
+    for (int i = 0; pend.size() > 0; i++) {
         int index = jacobsthalSeq[i]; 
         if (index < pend.size()) {
             main.insert(std::lower_bound(main.begin(), main.end(), pend[index], lowerBoundCompare), pend[index]);
