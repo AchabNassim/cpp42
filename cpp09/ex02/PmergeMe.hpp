@@ -10,10 +10,15 @@ class PmergeMe {
     private:
         std::vector<int> vec;
         std::deque<int> deq;
-    public:
+
         PmergeMe();
+    public:
         PmergeMe(std::string string);
         ~PmergeMe();
         PmergeMe& operator=(PmergeMe& ref);
 };
+
+std::ostream& operator<<(std::ostream &os, std::vector<int> vec);
+std::ostream& operator<<(std::ostream &os, std::deque<int> deq);
+
 
