@@ -76,9 +76,10 @@ void    Rpn::addElement(char currentCell) {
 }
 
 std::ostream& operator<<(std::ostream& os, std::stack<int> stack) {
-    while (!stack.empty()) {
+    if (stack.size() > 1) {
+        os << "Invalid reverse polish notation" << std::endl;
+    } else {
         os << "Value stored in stack == " << stack.top() << std::endl;
-        stack.pop();
     }
     return (os);
 }

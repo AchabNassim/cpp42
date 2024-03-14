@@ -24,122 +24,11 @@ BitcoinExchange::~BitcoinExchange() {
 
 // Methods
 
-std::string&    BitcoinExchange::myTrim(std::string &s, char c) {
-    size_t  i = 0;
-    size_t  j = s.size() - 1;
-    while (i < s.size() && std::isspace(s[i])) {
-        i++;
-    }
-    while (j > 0 && std::isspace(s[j])) {
-        j--;
-    }
-    s.erase(0, i);
-    if (j > 0 && c == 'd')
-        s.erase(j + 1, s.size() - j - 1);
-    return (s);
-}
-
-int BitcoinExchange::invalid_string(std::string string, char c) {
-    int point = 0;
-    int sign = 0;
-    for (size_t i = 0; i < string.size(); i++) {
-        if (c == 'r') {
-            if (!isdigit(string[i]) && string[i] != ' ' && string[i] != '\t' && string[i] != '\n' && string[i] != '.' && string[i] != '-')
-                return (1);
-            else if (string[i] == '.') {
-                point++;
-            } else if (string[i] == '-') {
-                sign++;
-            }
-        } else {
-            if (!isdigit(string[i]) && string[i] != ' ' && string[i] != '\t' && string[i] != '\n') {
-                return (1);
-            }
-        }
-    }
-    if (c == 'r' && (point > 1 || sign > 1))
-        return (-1);
-    return (0);
-}
-
-int BitcoinExchange::check_delim(std::string string, char c) {
-    int occ = 0;
-    for (size_t i = 0; i < string.size(); i++) {
-        if (string[i] == c)
-            occ++;
-    }
-    if (occ != 1)
-        return (-1);
-    return (0);
-}
-
-int BitcoinExchange::check_date(std::string string) {
-    std::istringstream format(string);
-    std::string buffer;
-    double      dateVal;
-    int         isFeb = 0;
-    int         valid = 0;
-    
-    while (std::getline(format, buffer, '-')) {
-        if (valid == 0) {
-            dateVal = std::stoi(buffer);
-            if (invalid_string(buffer, 'd') == -1 || buffer.size() != 4 || dateVal > 2024 || dateVal < 2009) {
-                std::cerr << "Error: year is not valid" << std::endl;
-                return (-1);
-            }
-            valid++;
-        } else if (valid == 1) {
-            dateVal = std::stoi(buffer);
-            if (invalid_string(buffer, 'd') == -1 || buffer.size() != 2 || dateVal > 12 || dateVal < 1) {
-                std::cerr << "Error: month is not valid" << std::endl;
-                return (-1);
-            }
-            if (buffer.compare("02") == 0)
-                isFeb = 1;
-            valid++;
-        } else if (valid == 2) {
-            if (isFeb) {
-                dateVal = std::stoi(buffer);
-                if (invalid_string(buffer, 'd') == -1 || buffer.size() != 3 || dateVal > 31 || dateVal < 1 || (dateVal > 28 && isFeb)) {
-                    std::cerr << "Error: day is not valid" << std::endl;
-                    return (-1);
-                }
-            }
-            valid++;
-        }
-    }
-    if (valid != 3)
-        return (-1);
-    return (0);
-}
-
-int BitcoinExchange::check_rate(std::string rate) {
-    double  rateVal;
-    if (invalid_string(rate, 'r')) {
-        std::cout << "Error: bad input\n";
-        return (-1);
-    }
-    try {
-        rateVal = std::stod(rate);
-        if (rateVal > 1000) {
-            std::cout << "Error: too large number\n";
-            return (-1);
-        } else if (rateVal < 0) {
-            std::cout << "Error: not a positive number\n";
-            return (-1);
-        }
-    } catch(std::exception &e) {
-        std::cout << "Error: bad input\n";
-        return (-1);
-    }
-    return (0);
-}
-
 void    BitcoinExchange::storeRateDb() {
     std::ifstream   inFile("database.csv");
     std::string     line;
 
-    if (inFile.fail()) {
+    if (!inFile.is_open()) {
         std::cout << "Error: could not open file" << std::endl;
         exit (1);
     }
@@ -150,14 +39,96 @@ void    BitcoinExchange::storeRateDb() {
         std::getline(ss, date, ',');
         std::getline(ss, rate, ',');
         if (date.compare("date") != 0 && rate.compare("exchange_rate") != 0) {
-            try {
-                double  rateVal = std::stod(rate);
-                this->RateDb[date] = rateVal;
-            } catch (std::exception &e) {
-                // std::cout << e.what() << std::endl;
+            std::stringstream ss;
+            double rateValue;
+            ss << rate;
+            (ss >> rateValue);
+            this->RateDb[date] = rateValue;
+        }
+    }
+}
+
+int BitcoinExchange::checkDelim(std::string line) {
+    int i = 0;
+    int v = 0;
+    while (line[i]) {
+        if (line[i] == '|')
+            v++;
+        i++;
+    }
+    return (v == 1 ? 0 : -1);
+}
+
+int BitcoinExchange::isNumber(std::string string, int mode) {
+    int point = 0;
+    for (int i = 0; i < string.size(); i++) {
+        if (!isdigit(string[i])) {
+            if ((string[i] == '-' || string[i] == '+') && mode == 1 && i == 0) {
+                continue ;
+            } else if (string[i] == '.' && mode == 1 && point == 0) {
+                point++;
+            } else {
+                return (1);
             }
         }
     }
+    return (0);
+}
+
+int BitcoinExchange::checkDate(std::string date) {
+    std::stringstream ss;
+    std::string buffer;
+    int isFeb = 0;
+    int v = 0;
+
+    ss << date;
+    if (date.size() != 10) {
+        std::cerr << "Error: Bad Input: " << date << std::endl;
+        return (-1);
+    }
+    while (std::getline(ss, buffer, '-')) {
+        if (v == 0) {
+            int value = atoi(buffer.c_str());
+            if (buffer.size() != 4 || isNumber(buffer, 0) || (value < 2009 || value > 2024)) {
+                std::cerr << "Error: Bad Input: " << date << std::endl;
+                return (-1);
+            } 
+            v++;
+        } else if (v == 1) {
+            int value = atoi(buffer.c_str());
+            if (buffer.size() != 2 || isNumber(buffer, 0) || (value < 1 || value > 12)) {
+                std::cerr << "Error: Bad Input: " << date <<  " buffer == \"" << buffer << "\"" <<std::endl;
+                return (-1);
+            }
+            if (value == 2)
+                isFeb = 1;
+            v++;
+        } else if (v == 2) {
+            int value = atoi(buffer.c_str());
+            if (buffer.size() != 2 || isNumber(buffer, 0) || (value < 1 || value > 31) || isFeb && value > 29) {
+                std::cerr << "Error: Bad Input: " << date << std::endl;
+                return (-1);
+            }
+            v++;
+        }
+    }
+    return (0);
+}
+
+double BitcoinExchange::checkRate(std::string rate) {
+    std::stringstream ss(rate);
+    double value;
+    if (isNumber(rate, 1) || !(ss >> value)) {
+        std::cerr << "Error: bad input\n";
+        return (-1);
+    } else if (value > 1000) {
+        std::cerr << "Error: too large number\n";
+        return (-1);
+    } else if (value < 0) {
+        std::cerr << "Error: not a positive number\n";
+        return (-1);
+    }
+    return (value);
 }
 
 void BitcoinExchange::findDate(std::string date, double rate) {
@@ -180,38 +151,36 @@ void BitcoinExchange::findDate(std::string date, double rate) {
 void    BitcoinExchange::calculateRate(std::string filename) {
     std::ifstream   inFile(filename);
     std::string     line;
+    int             v = 0;
 
-    if (inFile.fail()) {
+    if (!inFile.is_open()) {
         std::cerr << "Error: could not open file." << std::endl;
         exit (1);
     }
     while (std::getline(inFile, line)) {
-        if (this->invalid_string(line, 'r') == -1)
-        {
-            std::cerr << "Error:bad input" << std::endl;
-            continue ;
+        if (v == 0 && line.compare("date | value") != 0) {
+            std::cerr << "please fix the first line in the database entered\n";
+            exit (1);
         }
-        if (check_delim(line, '|') == -1) {
-            std::cout << "Error: bad input => no delim\n";
-            continue ;
-        }
-        std::istringstream ss(line);
+        std::stringstream ss(line);
         std::string date;
         std::string rate;
         std::getline(ss, date, '|');
         std::getline(ss, rate, '|');
-        if (date.compare("date ") != 0 && rate.compare(" value") != 0) {
-            myTrim(date, 'd');
-            myTrim(rate, 'r');
-            try {
-                if (check_rate(rate) != -1 && check_date(date) != -1 ) {
-                    // std::cout << "date == '" << date << "' rate == '" << rate << "'" << std::endl;
-                    double  rateVal = std::stod(rate);
-                    findDate(date, rateVal);
-                }
-            } catch (std::exception &e) {
-                // this->currentDb[myTrim(date)] = -1;
+        if (checkDelim(line) != 0) {
+            std::cout << "Error: bad input " << line << std::endl;
+            continue ;
+        }
+        date.erase(date.find_last_not_of(" ") + 1);
+        rate.erase(0, rate.find_last_of(" ") + 1);
+        if (v > 0 && checkDate(date) == 0) {
+            double rateValue = checkRate(rate);
+            if (rateValue != -1) {
+                findDate(date, rateValue);
             }
+        }
+        if (v == 0) {
+            v++;
         }
     }
 }
@@ -221,9 +190,9 @@ const std::map<std::string, double>& BitcoinExchange::getRateDb() const {
 }
 
 
-std::ostream& operator<<(std::ostream& os, const std::map<std::string, double> &ref) {
-    for (std::map<std::string, double>::const_iterator begin = ref.begin(); begin != ref.end(); begin++) {
-        os << "date == '" << begin->first << "' -- rate == '" << begin->second << "'" << std::endl;
-    }
-    return (os);
-}
+// std::ostream& operator<<(std::ostream& os, const std::map<std::string, double> &ref) {
+//     for (std::map<std::string, double>::const_iterator begin = ref.begin(); begin != ref.end(); begin++) {
+//         os << "date == '" << begin->first << "' -- rate == '" << begin->second << "'" << std::endl;
+//     }
+//     return (os);
+// }
