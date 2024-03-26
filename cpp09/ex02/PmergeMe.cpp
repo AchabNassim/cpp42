@@ -1,4 +1,5 @@
 #include "PmergeMe.hpp"
+#include <algorithm>
 
 int comparisons = 0;
 
@@ -108,6 +109,34 @@ bool lowerBoundCompare(int a, int b) {
     return (a < b);
 }
 
+std::vector<int> buildJacobsthalSequence(int length) {
+    std::vector<int> sequence;
+    sequence.push_back(0);
+    sequence.push_back(1);
+
+    for (int i = 2; i <= length; ++i) {
+        sequence.push_back(sequence[i - 1] + 2 * sequence[i - 2]);
+    }
+    return (sequence);
+}
+
+std::vector<int> FordInsertionSort(std::vector<int> main, std::vector<int> pend) {
+    std::vector<int> array = main;
+    std::vector<int> sequence = buildJacobsthalSequence(pend.size());
+    int added = 0;
+    std::cout << "pend size == " << pend.size() << std::endl;
+    for (int i = 0; i < pend.size(); i++) {
+        // std::cout << "i == " << i << std::endl;
+        // std::cout << "sequence index == " << sequence[i] << std::endl;
+        if (sequence[i] < pend.size()) {
+            array.insert(std::lower_bound(array.begin(), array.begin() + sequence[i] + added, pend[sequence[i]]), pend[sequence[i]]);
+            added++;
+        }
+    }
+    std::cout << "works\n";
+    return (array);
+}
+
 void PmergeMe::vectorFordMerge(std::vector<int> array) {
     int straggler = -1;
     if (array.size() & 1) {
@@ -117,5 +146,19 @@ void PmergeMe::vectorFordMerge(std::vector<int> array) {
     std::vector<std::vector<int> > pairs = makePairs(array);
     sortpair(pairs);
     pairs = mergeSortPairs(pairs);
-    
+    std::vector<int> main;
+    std::vector<int> pend;
+
+    for (int i = 0; i < pairs.size(); i++) {
+        main.push_back(pairs[i][1]);
+        pend.push_back((pairs[i][0]));
+    }
+    // std::cout << "****** main array ******\n" << main << "************\n";
+    // std::cout << "****** pend array ******\n" << pend << "************\n";
+    if (straggler != -1) {
+        pend.push_back(straggler);
+    }
+    std::vector<int> sortedArray = FordInsertionSort(main, pend);
+    std::cout << "****** sorted array ******\n" << sortedArray << "************\n";
 }
+
