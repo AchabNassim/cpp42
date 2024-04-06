@@ -25,7 +25,7 @@ BitcoinExchange::~BitcoinExchange() {
 // Methods
 
 void    BitcoinExchange::storeRateDb() {
-    std::ifstream   inFile("database.csv");
+    std::ifstream   inFile("data.csv");
     std::string     line;
 
     if (!inFile.is_open()) {
