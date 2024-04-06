@@ -6,11 +6,20 @@ int comparisons = 0;
 PmergeMe::PmergeMe() {
 }
 
+int validInt(std::string value) {
+    for (size_t i = 0; i < value.size(); i++) {
+        if (!isdigit(value[i]) && value[i] != '+') {
+            return (-1);
+        }
+    }
+    return (0);
+}
+
 PmergeMe::PmergeMe(int ac, char **av) {
     for (int i = 1; i < ac; i++) {
         std::stringstream ssValue(av[i]);
         int value;
-        if (!(ssValue >> value) || value < 0) {
+        if (validInt(av[i]) == -1 || !(ssValue >> value) || value < 0) {
             std::cerr << "Please enter a valid int array" << std::endl;
             exit (1);
         } else {
