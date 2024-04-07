@@ -14,7 +14,7 @@ $(NAME) : $(OBJ)
 	$(CXX) $(CXXFLAGS) $^ -o $@
 
 %.o: %.cpp $(HDR)
-	$(CXX) $(FLAGS) -c $< -o $@
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 clean :
 	rm -rf $(OBJ)

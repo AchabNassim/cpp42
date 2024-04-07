@@ -61,7 +61,7 @@ int BitcoinExchange::checkDelim(std::string line) {
 
 int BitcoinExchange::isNumber(std::string string, int mode) {
     int point = 0;
-    for (int i = 0; i < string.size(); i++) {
+    for (size_t i = 0; i < string.size(); i++) {
         if (!isdigit(string[i])) {
             if ((string[i] == '-' || string[i] == '+') && mode == 1 && i == 0) {
                 continue ;
@@ -105,7 +105,7 @@ int BitcoinExchange::checkDate(std::string date) {
             v++;
         } else if (v == 2) {
             int value = atoi(buffer.c_str());
-            if (buffer.size() != 2 || isNumber(buffer, 0) || (value < 1 || value > 31) || isFeb && value > 29) {
+            if (buffer.size() != 2 || isNumber(buffer, 0) || (value < 1 || value > 31) ||( isFeb && value > 29)) {
                 std::cerr << "Error: Bad Input: " << date << std::endl;
                 return (-1);
             }
